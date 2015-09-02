@@ -16,7 +16,7 @@ var tpl map[string]string
 var defaultpath string
 var pro1 = `package goojt
 
-func reverse(arg ...int) []int {
+func reverse(arg []int) []int {
 	// TODO Something
 	return nil
 }`

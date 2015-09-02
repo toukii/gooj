@@ -28,7 +28,7 @@ func GenerateOjModle(path_, func_name, content string) error {
 	if !goutils.CheckErr(err) {
 		os.RemoveAll(path_)
 	}
-	err = os.Mkdir(path_, 0644)
+	err = os.Mkdir(path_, 0777)
 	if goutils.CheckErr(err) {
 		// return err
 	}
@@ -50,6 +50,7 @@ func GenerateOjModle(path_, func_name, content string) error {
 	}
 	args := make(map[string]interface{})
 	args["FUNC"] = func_name
+	args["ARGS"] = 0
 	return renderOjModle(args, test_file)
 }
 

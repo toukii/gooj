@@ -46,14 +46,15 @@ func Oj(result chan string) {
 
 func TestRender(t *testing.T) {
 	content := `package goojt
-	
-import "time"
 
-func makeis() []int {
-ret := make([]int, 3)
-ret[0], ret[1], ret[2] = 1, 2, 3
-time.Sleep(1e8)
-return ret
-}`
-	GenerateOjModle("./t2", "makeis", content)
+func reverse(in []int) []int {
+	leng := len(in)
+	l := leng / 2
+	for i := 0; i < l; i++ {
+		in[i], in[leng-1-i] = in[leng-1-i], in[i]
+	}
+	return in
+}
+`
+	GenerateOjModle("./tw2", "reverse", content)
 }
