@@ -11,4 +11,4 @@ Golang Online Judge
 
 ## OJ
 
-[GOOJ](goojle.daoapp.io)
+[GOOJ](http://goojle.daoapp.io)
