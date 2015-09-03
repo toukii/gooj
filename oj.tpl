@@ -22,12 +22,12 @@ func Oj(result chan string) {
 			}
 			retc <- true
 		}
-		retc <- true
 	}()
 	length := len(testcases)
+	ticker := time.NewTicker(5e8)
 	for i := 0; i < length; i++ {
 		select {
-		case <-time.After((time.Duration)(len(testcases) * 5e9)):
+		case <-ticker.C:
 			result <- "TIMEOUT"
 		case ok := <-retc:
 			if !ok {
