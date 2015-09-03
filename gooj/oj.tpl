@@ -4,6 +4,7 @@ import (
 	"github.com/qiniu/log"
 	"testing"
 	"time"
+	"reflect"
 )
 
 func Oj(result chan string) {
@@ -12,14 +13,12 @@ func Oj(result chan string) {
 	go func() {
 		for _, it := range testcases {
 			ret := {{.FUNC}}(it.in)
-			for i, _ := range ret {
-				if ret[i] != it.out[i] {
-					retc <- false
-					log.Println(it.in)
-					log.Println("want", it.out)
-					log.Println("get", ret)
-					return
-				}
+			if !reflect.DeepEqual(ret, it.out) {
+				retc <- false
+				log.Println(it.in)
+				log.Println("want", it.out)
+				log.Println("get", ret)
+				return
 			}
 		}
 		retc <- true
