@@ -20,21 +20,24 @@ func Oj(result chan string) {
 				log.Println("get", ret)
 				return
 			}
+			retc <- true
 		}
 		retc <- true
 	}()
-
-	select {
-	case <-time.After((time.Duration)(len(testcases) * 5e9)):
-		result <- "TIMEOUT"
-	case ok := <-retc:
-		log.Info(time.Now().Sub(t1))
-		if ok {
-			result <- "AC"
-		} else {
-			result <- "WRONG"
+	length := len(testcases)
+	for i := 0; i < length; i++ {
+		select {
+		case <-time.After((time.Duration)(len(testcases) * 5e9)):
+			result <- "TIMEOUT"
+		case ok := <-retc:
+			if !ok {
+				result <- "WA"
+				return
+			}
 		}
 	}
+	log.Info(time.Now().Sub(t1))
+	result <- "AC"
 }
 
 type TestCases struct {
