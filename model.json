@@ -1,0 +1,17 @@
+{
+"desc":"reverse the array",
+"func_model":`package goojt
+
+func reverse(arr []int) []int{
+
+return nil
+}`,
+"func_name":"reverse",
+"args":"[]int",
+"rets":"[]int",
+"test_cases":`{in: []int{1, 2, 3}, out: []int{3, 2, 1}},
+		{in: []int{1, 2, 4}, out: []int{4, 2, 1}},
+		{in: []int{1, 5, 3}, out: []int{3, 5, 1}},
+		{in: []int{6, 2, 3}, out: []int{3, 2, 6}},`,
+	
+}
