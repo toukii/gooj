@@ -79,16 +79,5 @@ func FUNC(in []int) []int {
 }
 
 func TestRender(t *testing.T) {
-	// 	content := `package goojt
-
-	// func reverse(in []int) []int {
-	// 	leng := len(in)
-	// 	l := leng / 2
-	// 	for i := 0; i < l; i++ {
-	// 		in[i], in[leng-1-i] = in[leng-1-i], in[i]
-	// 	}
-	// 	return in
-	// }
-	// `
-	// GenerateOjModle("./tw2", "reverse", content)
+	GenerateOjModle("./tw2", ToM())
 }

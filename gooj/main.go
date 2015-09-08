@@ -14,6 +14,7 @@ import (
 
 var tpl map[string]string
 var defaultpath string
+var m *gooj.Model
 var pro1 = `package goojt
 
 func reverse(arg []int) []int {
@@ -28,6 +29,7 @@ func init() {
 	b, err := ioutil.ReadFile("pro.html")
 	goutils.CheckErr(err)
 	tpl["pro"] = goutils.ToString(b)
+	m = gooj.ToM()
 }
 
 func main() {
@@ -55,7 +57,7 @@ func submit(rw http.ResponseWriter, req *http.Request) {
 		return
 	}
 	cmd := exc.NewCMD("go test -v").Cd(defaultpath)
-	err := gooj.GenerateOjModle(path_, func_name, content)
+	err := gooj.GenerateOjModle(path_, m)
 	goutils.CheckErr(err)
 	ret, err := cmd.Cd(path_).Debug().Do()
 	goutils.CheckErr(err)
