@@ -25,12 +25,12 @@ import (
 }*/
 
 type Model struct {
-	Desc      string     `json:"desc"`
-	FuncName  string     `json:"func_name"`
-	Content   string     `json:"content"`
-	ArgsType  []string   `json:"args_type"`
-	RetsType  []string   `json:"rets_type"`
-	TestCases []TestCase `json:"test_cases"`
+	Desc      string `json:"desc"`
+	FuncName  string `json:"func_name"`
+	Content   string `json:"content"`
+	ArgsType  string `json:"args_type"`
+	RetsType  string `json:"rets_type"`
+	TestCases string `json:"test_cases"`
 }
 
 func NewModel() Model {
@@ -39,17 +39,20 @@ func NewModel() Model {
 		FuncName: "reverse",
 		Content: `package goojt
 
-	func reverse(in []int) []int {
-		leng := len(in)
-		l := leng / 2
-		for i := 0; i < l; i++ {
-			in[i], in[leng-1-i] = in[leng-1-i], in[i]
-		}
-		return in
-	}`,
-		ArgsType:  []string{"[]int"},
-		RetsType:  []string{"[]int"},
-		TestCases: []TestCase{NewTestCase()},
+func reverse(in []int) []int {
+	leng := len(in)
+	l := leng / 2
+	for i := 0; i < l; i++ {
+		in[i], in[leng-1-i] = in[leng-1-i], in[i]
+	}
+	return in
+}`,
+		ArgsType: "[]int",
+		RetsType: "[]int",
+		TestCases: `{in: []int{1, 2, 3}, out: []int{3, 2, 1}},
+		{in: []int{1, 2, 4}, out: []int{4, 2, 1}},
+		{in: []int{1, 5, 3}, out: []int{3, 5, 1}},
+		{in: []int{6, 2, 3}, out: []int{3, 2, 6}},`,
 	}
 }
 

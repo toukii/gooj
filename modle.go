@@ -50,6 +50,9 @@ func GenerateOjModle(path_ string, m *Model) error {
 	}
 	args := make(map[string]interface{})
 	args["FUNC"] = m.FuncName
+	args["ArgsType"] = m.ArgsType
+	args["RetsType"] = m.RetsType
+	args["TestCases"] = m.TestCases
 	return renderOjModle(args, test_file)
 }
 

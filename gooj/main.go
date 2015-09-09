@@ -42,15 +42,16 @@ func pro(rw http.ResponseWriter, req *http.Request) {
 	tpl, err := template.New("pro.html").Parse(tpl["pro"])
 	goutils.CheckErr(err)
 	data := make(map[string]interface{})
-	data["pro"] = pro1
-	data["fname"] = "reverse"
+	data["pro"] = m.Content
+	data["desc"] = m.Desc
+	data["fname"] = m.FuncName
 	tpl.Execute(rw, data)
 }
 
 func submit(rw http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
 	path_ := req.Form.Get("rid")
-	func_name := req.Form.Get("fname")
+	// func_name := req.Form.Get("fname")
 	content := req.Form.Get("pro")
 	if strings.Contains(content, `"os`) {
 		rw.Write(goutils.ToByte("呵呵"))

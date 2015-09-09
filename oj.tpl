@@ -41,18 +41,15 @@ func Oj(result chan string) {
 }
 
 type TestCases struct {
-	in  []int
-	out []int
+	in  {{.ArgsType}}
+	out {{.RetsType}}
 }
 
 var testcases []TestCases
 
 func init() {
 	testcases = []TestCases{
-		{in: []int{1, 2, 3}, out: []int{3, 2, 1}},
-		{in: []int{1, 2, 4}, out: []int{4, 2, 1}},
-		{in: []int{1, 5, 3}, out: []int{3, 5, 1}},
-		{in: []int{6, 2, 3}, out: []int{3, 2, 6}},
+		{{.TestCases}}
 	}
 }
 
