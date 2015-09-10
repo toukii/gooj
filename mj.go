@@ -85,3 +85,23 @@ func ToM() *Model {
 	goutils.CheckErr(err)
 	return &ret
 }
+
+func MJs() {
+	f, err := os.OpenFile("models.json", os.O_CREATE|os.O_WRONLY, 0644)
+	goutils.CheckErr(err)
+	m := NewModel()
+	m2 := NewModel()
+
+	b, err := json.MarshalIndent([]*Model{&m, &m2}, "", "\t")
+	goutils.CheckErr(err)
+	f.Write(b)
+}
+
+func ToMs() []*Model {
+	b, err := ioutil.ReadFile("models.json")
+	goutils.CheckErr(err)
+	var ret []*Model
+	err = json.Unmarshal(b, &ret)
+	goutils.CheckErr(err)
+	return ret
+}

@@ -79,5 +79,5 @@ func FUNC(in []int) []int {
 }
 
 func TestRender(t *testing.T) {
-	GenerateOjModle("./tw2", ToM())
+	// GenerateOjModle("./tw2", ToM())
 }
