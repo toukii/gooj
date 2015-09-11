@@ -15,6 +15,7 @@ import (
 var tpl map[string]string
 var defaultpath string
 var m *gooj.Model
+var ms []gooj.Model
 var pro1 = `package goojt
 
 func reverse(arg []int) []int {
@@ -29,13 +30,26 @@ func init() {
 	b, err := ioutil.ReadFile("pro.html")
 	goutils.CheckErr(err)
 	tpl["pro"] = goutils.ToString(b)
+	b, err = ioutil.ReadFile("list.html")
+	goutils.CheckErr(err)
+	tpl["list"] = goutils.ToString(b)
 	m = gooj.ToM()
+	ms = gooj.ToMs()
 }
 
 func main() {
 	http.HandleFunc("/", pro)
+	http.HandleFunc("/l", list)
 	http.HandleFunc("/oj", submit)
 	http.ListenAndServe(":80", nil)
+}
+
+func list(rw http.ResponseWriter, req *http.Request) {
+	tpl, err := template.New("list.html").Parse(tpl["list"])
+	goutils.CheckErr(err)
+	data := make(map[string]interface{})
+	data["pros"] = ms
+	tpl.Execute(rw, data)
 }
 
 func pro(rw http.ResponseWriter, req *http.Request) {

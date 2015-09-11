@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PROBLEM</title>
+<style type="text/css">
+	body{background-image:url("http://7xku3c.com1.z0.glb.clouddn.com/big.jpg");background-repeat:repeat;}
+</style>
+</head>
+<body>
+<div>
+	<div>
+		<p><h2><font color="white">PROBLEMS</font></h2></p>
+		<hr>
+		<li>
+			{{range .pros}}
+				<ul>
+				<a href="/"><p><h3><font color="blue">{{.Desc}}</font></h3></p></a>
+				<textarea name="pro" cols="50" rows="10">{{.Content}}</textarea><br>
+				</ul>
+			{{end}}
+		</li>
+	</div>
+</div>
+</body>
+</html>

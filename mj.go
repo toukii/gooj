@@ -97,10 +97,10 @@ func MJs() {
 	f.Write(b)
 }
 
-func ToMs() []*Model {
+func ToMs() []Model {
 	b, err := ioutil.ReadFile("models.json")
 	goutils.CheckErr(err)
-	var ret []*Model
+	var ret []Model
 	err = json.Unmarshal(b, &ret)
 	goutils.CheckErr(err)
 	return ret
