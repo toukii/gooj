@@ -38,8 +38,8 @@ func init() {
 }
 
 func main() {
-	http.HandleFunc("/", pro)
-	http.HandleFunc("/l", list)
+	http.HandleFunc("/pro/1", pro)
+	http.HandleFunc("/", list)
 	http.HandleFunc("/oj", submit)
 	http.ListenAndServe(":80", nil)
 }
