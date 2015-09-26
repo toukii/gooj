@@ -28,14 +28,13 @@
 	</div>
 <div>
 	<div>
-		<p><h2><font color="white">PROBLEMS</font></h2></p>
-		<hr>
 		<li>
 			{{range .pros}}
 				<ul>
 				<a href="/pro/1"><p><h3><font color="blue">{{.Desc}}</font></h3></p></a>
 				<textarea name="pro" cols="50" rows="10">{{.Content}}</textarea><br>
 				</ul>
+				<hr>
 			{{end}}
 		</li>
 	</div>
