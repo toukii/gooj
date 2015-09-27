@@ -26,6 +26,7 @@ import (
 }*/
 
 type Model struct {
+	Id        string `json:"id"`
 	Title     string `json:"title"`
 	Desc      string `json:"desc"`
 	FuncName  string `json:"func_name"`
@@ -37,6 +38,7 @@ type Model struct {
 
 func NewModel() Model {
 	return Model{
+		Id:       "1",
 		Title:    "reverse",
 		Desc:     "reverse the array",
 		FuncName: "reverse",

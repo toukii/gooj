@@ -21,10 +21,10 @@
 <br>
 <div class="container projects">
     <div class="row">
-      {{range .pros}}
+      {{ range $k,$v := .pros}}
             <div class="col-sm-8 col-md-4 col-lg-2">
             <div class="thumbnail">
-              <a href="/pro/1">{{.Title}}
+              <a href="/pro/{{$k}}">{{.Title}}
               <img class="img-rounded lazy" src="http://7xku3c.com1.z0.glb.clouddn.com/bgi.jpg" width="250px" height="5px" alt="Headroom.js">
               </a>
               	<hr>
