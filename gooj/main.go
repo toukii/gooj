@@ -87,6 +87,7 @@ func submit(rw http.ResponseWriter, req *http.Request) {
 		return
 	}
 	cmd := exc.NewCMD("go test -v").Cd(defaultpath)
+	m.Content = content
 	err := gooj.GenerateOjModle(path_, m)
 	goutils.CheckErr(err)
 	ret, err := cmd.Cd(path_).Debug().Do()
