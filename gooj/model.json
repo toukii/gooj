@@ -1,4 +1,5 @@
 {
+	"title": "reverse",
 	"desc": "reverse the array",
 	"func_name": "reverse",
 	"content": "package goojt\n\nfunc reverse(in []int) []int {\n\tleng := len(in)\n\tl := leng / 2\n\tfor i := 0; i \u003c l; i++ {\n\t\tin[i], in[leng-1-i] = in[leng-1-i], in[i]\n\t}\n\treturn in\n}",

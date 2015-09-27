@@ -12,16 +12,29 @@ import (
 	"strings"
 )
 
-var tpl map[string]string
-var defaultpath string
-var m *gooj.Model
-var ms []gooj.Model
-var pro1 = `package goojt
+var (
+	tpl         map[string]string
+	defaultpath string
+	m           *gooj.Model
+	pro1        = `package goojt
 
 func reverse(arg []int) []int {
 	// TODO Something
 	return nil
 }`
+	scripts = `<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://static.bootcss.com/www/assets/css/site.min.css?v5" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="http://cdn.bootcss.com/unveil/1.3.0/jquery.unveil.min.js"></script>
+    <script src="http://cdn.bootcss.com/scrollup/2.4.0/jquery.scrollUp.min.js"></script>
+    <script src="http://cdn.bootcss.com/toc/0.3.2/toc.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery.matchHeight/0.5.2/jquery.matchHeight-min.js"></script>
+    <script src="http://static.bootcss.com/www/assets/js/site.min.js"></script>`
+	script template.HTML
+	msURL  = "http://7xku3c.com1.z0.glb.clouddn.com/models.json"
+)
 
 func init() {
 	defaultpath, _ = os.Getwd()
@@ -34,7 +47,7 @@ func init() {
 	goutils.CheckErr(err)
 	tpl["list"] = goutils.ToString(b)
 	m = gooj.ToM()
-	ms = gooj.ToMs()
+	script = template.HTML(scripts)
 }
 
 func main() {
@@ -48,7 +61,8 @@ func list(rw http.ResponseWriter, req *http.Request) {
 	tpl, err := template.New("list.html").Parse(tpl["list"])
 	goutils.CheckErr(err)
 	data := make(map[string]interface{})
-	data["pros"] = ms
+	data["pros"] = gooj.TiniuMs(msURL)
+	data["script"] = script
 	tpl.Execute(rw, data)
 }
 
@@ -56,6 +70,7 @@ func pro(rw http.ResponseWriter, req *http.Request) {
 	tpl, err := template.New("pro.html").Parse(tpl["pro"])
 	goutils.CheckErr(err)
 	data := make(map[string]interface{})
+	data["script"] = script
 	data["pro"] = m.Content
 	data["desc"] = m.Desc
 	data["fname"] = m.FuncName

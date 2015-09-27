@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="http://static.bootcss.com/www/assets/css/site.min.css?v5" rel="stylesheet">
-    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="http://cdn.bootcss.com/unveil/1.3.0/jquery.unveil.min.js"></script>
-    <script src="http://cdn.bootcss.com/scrollup/2.4.0/jquery.scrollUp.min.js"></script>
-    <script src="http://cdn.bootcss.com/toc/0.3.2/toc.min.js"></script>
-    <script src="http://cdn.bootcss.com/jquery.matchHeight/0.5.2/jquery.matchHeight-min.js"></script>
-    <script src="http://static.bootcss.com/www/assets/js/site.min.js"></script>
+	{{.script}}
 	<title>PROBLEM</title>
 	<style type="text/css">
-		body{background-image:url("http://7xku3c.com1.z0.glb.clouddn.com/big.jpg");background-repeat:repeat;}
+		/*body{background-image:url("http://7xku3c.com1.z0.glb.clouddn.com/big.jpg");background-repeat:repeat;}*/
 	</style>
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<a class="navbar-brand hidden-sm" href="/">Home</a>
-			<font style="color:white">PROBLEM</font style="color:white">
-			<ul class="nav navbar-nav navbar-right hidden-sm">
-				<li><a class="navbar-brand hidden-sm" href="/">Home</a></li>
-          </ul>
-		</div>
-	</div>
-<div>
-	<div>
-		<li>
-			{{range .pros}}
-				<ul>
-				<a href="/pro/1"><p><h3><font color="blue">{{.Desc}}</font></h3></p></a>
-				<textarea name="pro" cols="50" rows="10">{{.Content}}</textarea><br>
-				</ul>
-				<hr>
-			{{end}}
-		</li>
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand hidden-sm" href="/">Home</a>
+		<font style="color:white">PROBLEM</font style="color:white">
+		<ul class="nav navbar-nav navbar-right hidden-sm">
+			<!-- <li><a class="navbar-brand hidden-sm" href="/">Home</a></li> -->
+      </ul>
 	</div>
 </div>
+<br>
+<br>
+<div class="container projects">
+    <div class="row">
+      {{range .pros}}
+            <div class="col-sm-8 col-md-4 col-lg-2">
+            <div class="thumbnail">
+              <a href="/pro/1">{{.Title}}
+              <img class="img-rounded lazy" src="http://7xku3c.com1.z0.glb.clouddn.com/bgi.jpg" width="250px" height="5px" alt="Headroom.js">
+              </a>
+              	<hr>
+                <label onclick="#">{{.Desc}}</label>
+            </div>
+          </div>
+      {{end}}
+	</div>
+<div>
+
 </body>
 </html>

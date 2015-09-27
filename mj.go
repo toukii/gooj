@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/shaalx/goutils"
 	"io/ioutil"
+	"net/http"
 	"os"
 )
 
@@ -25,6 +26,7 @@ import (
 }*/
 
 type Model struct {
+	Title     string `json:"title"`
 	Desc      string `json:"desc"`
 	FuncName  string `json:"func_name"`
 	Content   string `json:"content"`
@@ -35,6 +37,7 @@ type Model struct {
 
 func NewModel() Model {
 	return Model{
+		Title:    "reverse",
 		Desc:     "reverse the array",
 		FuncName: "reverse",
 		Content: `package goojt
@@ -99,6 +102,17 @@ func MJs() {
 
 func ToMs() []Model {
 	b, err := ioutil.ReadFile("models.json")
+	goutils.CheckErr(err)
+	var ret []Model
+	err = json.Unmarshal(b, &ret)
+	goutils.CheckErr(err)
+	return ret
+}
+
+// http://7xku3c.com1.z0.glb.clouddn.com/models.json
+func TiniuMs(_url string) []Model {
+	resp, _ := http.Get(_url)
+	b, err := ioutil.ReadAll(resp.Body)
 	goutils.CheckErr(err)
 	var ret []Model
 	err = json.Unmarshal(b, &ret)

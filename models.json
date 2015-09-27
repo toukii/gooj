@@ -1,5 +1,6 @@
 [
 	{
+		"title": "reverse",
 		"desc": "reverse the array",
 		"func_name": "reverse",
 		"content": "package goojt\n\nfunc reverse(in []int) []int {\n\tleng := len(in)\n\tl := leng / 2\n\tfor i := 0; i \u003c l; i++ {\n\t\tin[i], in[leng-1-i] = in[leng-1-i], in[i]\n\t}\n\treturn in\n}",
@@ -8,6 +9,7 @@
 		"test_cases": "{in: []int{1, 2, 3}, out: []int{3, 2, 1}},\n\t\t{in: []int{1, 2, 4}, out: []int{4, 2, 1}},\n\t\t{in: []int{1, 5, 3}, out: []int{3, 5, 1}},\n\t\t{in: []int{6, 2, 3}, out: []int{3, 2, 6}},"
 	},
 	{
+		"title": "reverse",
 		"desc": "reverse the array",
 		"func_name": "reverse",
 		"content": "package goojt\n\nfunc reverse(in []int) []int {\n\tleng := len(in)\n\tl := leng / 2\n\tfor i := 0; i \u003c l; i++ {\n\t\tin[i], in[leng-1-i] = in[leng-1-i], in[i]\n\t}\n\treturn in\n}",
