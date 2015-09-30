@@ -15,7 +15,7 @@ import (
 var (
 	tpl         map[string]string
 	defaultpath string
-	m           *gooj.Model
+	m           gooj.Model
 	proMap      map[string]gooj.Model
 	pro1        = `package goojt
 
@@ -47,7 +47,7 @@ func init() {
 	b, err = ioutil.ReadFile("list.html")
 	goutils.CheckErr(err)
 	tpl["list"] = goutils.ToString(b)
-	m = gooj.ToM()
+	m = *gooj.ToM()
 	script = template.HTML(scripts)
 	ms := gooj.TiniuMs(msURL)
 	proMap = make(map[string]gooj.Model)
@@ -64,6 +64,19 @@ func main() {
 }
 
 func list(rw http.ResponseWriter, req *http.Request) {
+	uri := req.RequestURI
+	if strings.HasPrefix(uri, "/pro/") {
+		uris := strings.Split(uri, "/")
+		length := len(uris)
+		if length <= 0 {
+			return
+		}
+		// log.Info(uris[length-1])
+		// log.Info(uri)
+		m = proMap[uris[length-1]]
+		http.Redirect(rw, req, "/pro", 302)
+		return
+	}
 	tpl, err := template.New("list.html").Parse(tpl["list"])
 	goutils.CheckErr(err)
 	data := make(map[string]interface{})
@@ -73,15 +86,6 @@ func list(rw http.ResponseWriter, req *http.Request) {
 }
 
 func pro(rw http.ResponseWriter, req *http.Request) {
-	uri := req.RequestURI
-	uris := strings.Split(uri, "/")
-	length := len(uris)
-	log.Info(uris[len(uris)-1])
-	log.Info(uri)
-	if length <= 0 {
-		return
-	}
-	m := proMap[uris[len(uris)-1]]
 	tpl, err := template.New("pro.html").Parse(tpl["pro"])
 	goutils.CheckErr(err)
 	data := make(map[string]interface{})
@@ -103,7 +107,7 @@ func submit(rw http.ResponseWriter, req *http.Request) {
 	}
 	cmd := exc.NewCMD("go test -v").Cd(defaultpath)
 	m.Content = content
-	err := gooj.GenerateOjModle(path_, m)
+	err := gooj.GenerateOjModle(path_, &m)
 	goutils.CheckErr(err)
 	ret, err := cmd.Cd(path_).Debug().Do()
 	goutils.CheckErr(err)
