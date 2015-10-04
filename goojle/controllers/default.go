@@ -31,6 +31,16 @@ func init() {
 	}
 }
 
+// @router /update [get]
+func (c *MainController) Update() {
+	problems = gooj.TiniuMs(problemURL)
+	problemMap = make(map[string]gooj.Model)
+	for _, it := range problems {
+		problemMap[it.Id] = it
+	}
+	c.Redirect("/", 302)
+}
+
 // @router / [get]
 func (c *MainController) Get() {
 	c.Data["title"] = "PROBLEM"
