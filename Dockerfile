@@ -10,8 +10,7 @@ RUN go get github.com/qiniu/log
 RUN go get github.com/shaalx/gooj
 RUN go get github.com/shaalx/goutils
 RUN go get github.com/astaxie/beego
-RUN cd goojle
-RUN go build
+RUN go build -o Goojle ./goojle/ 
 
 EXPOSE 80
-CMD ["/gopath/goojle/goojle"]
+CMD ["/gopath/Goojle"]
