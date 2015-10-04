@@ -1,6 +1,6 @@
 FROM golang
 
-WORKDIR /gopath/app
+WORKDIR /gopath
 ENV GOPATH /gopath
 ADD . /gopath/
 
@@ -9,8 +9,6 @@ RUN go get github.com/everfore/exc
 RUN go get github.com/qiniu/log
 RUN go get github.com/shaalx/goutils
 RUN go get github.com/astaxie/beego
-RUN ls
-RUN cd ./goojle
 RUN ls
 RUN go build -o gooe ./goojle/
 
