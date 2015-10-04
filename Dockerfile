@@ -1,6 +1,6 @@
 FROM golang
 
-WORKDIR /gopath/gooj
+WORKDIR /gopath/app
 ENV GOPATH /gopath
 ADD . /gopath/
 
@@ -13,4 +13,4 @@ RUN go get github.com/astaxie/beego
 RUN go build -o Goojle ./goojle/ 
 
 EXPOSE 80
-CMD ["/gopath/Goojle"]
+CMD ["/gopath/app/Goojle"]
