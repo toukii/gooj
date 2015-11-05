@@ -1,0 +1,14 @@
+{{template "header.html" .}}
+<style type="text/css">
+  .hecker{
+    color: #00FF00;
+    background-color:#000;
+    font-size:14px;
+  }
+</style>
+<div class="container projects">
+  <div class="row">
+    <textarea style="color: #00FF00;background-color:#000;font-size:14px" class=".hecker" rows="10" cols="150" readonly="true">{{.result}}</textarea>    
+	</div>
+<div>
+{{template "footer.html" .}}

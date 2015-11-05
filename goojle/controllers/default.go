@@ -68,17 +68,19 @@ func (c *MainController) OJ() {
 	c.ParseForm(&input)
 	beego.Info(input)
 	beego.Info(c.Ctx.Input.Param("problem"))
-	submit(c.Ctx.ResponseWriter, c.Ctx.Request)
+	res := submit(c.Ctx.ResponseWriter, c.Ctx.Request)
+	c.TplNames = "result.html"
+	c.Data["result"] = goutils.ToString(res)
 }
 
-func submit(rw http.ResponseWriter, req *http.Request) {
+func submit(rw http.ResponseWriter, req *http.Request) []byte {
 	req.ParseForm()
 	fid := req.Form.Get("fid")
 	path_ := req.Form.Get("rid")
 	content := req.Form.Get("problem")
 	if strings.Contains(content, `"os`) {
-		rw.Write(goutils.ToByte("呵呵"))
-		return
+		// rw.Write(goutils.ToByte("呵呵"))
+		return goutils.ToByte("呵呵")
 	}
 	beego.Debug(content, path_, fid)
 	cmd := exc.NewCMD("go test -v").Cd(defaultpath)
@@ -89,5 +91,6 @@ func submit(rw http.ResponseWriter, req *http.Request) {
 	goutils.CheckErr(err)
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
 	goutils.CheckErr(err)
-	rw.Write(ret)
+	// rw.Write(ret)
+	return ret
 }
