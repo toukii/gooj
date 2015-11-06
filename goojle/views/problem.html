@@ -1,17 +1,15 @@
 {{template "header.html" .}}
-<br>
-<br>
 <div class="container">
 	<div>
-		<p><font color="red">{{.problem.Desc}}</font></p>
+		<textarea class="form-control" style="color:#656565;background-color:#e8edf2;" readonly="true" name="problem" rows="13">{{.problem.Desc}}</textarea><br>
 	</div>
-	<form action="/oj/{{.problem.Id}}" method="post">
-		<input type="hidden" name="fid" value="{{.problem.Id}}">
-		<input type="hidden" name="fname" value="{{.FuncName}}">
-		<input type="hidden" name="rid" value="rid777">
-		<textarea name="problem" cols="80" rows="15">{{.problem.Content}}</textarea><br>
-		<input type="submit">
-	</form>
-	<!-- <iframe style="border:1px solid" src="https://wide.b3log.org/playground/059837807c7c7d723e3f4a7665b31ea3.go?embed=true" width="99%" height="400"></iframe> -->
+	<div class="subject-content" id="codeEditor"></div>
+		<form action="/oj/{{.problem.Id}}" method="post">
+			<input type="hidden" name="fid" value="{{.problem.Id}}">
+			<input type="hidden" name="fname" value="{{.FuncName}}">
+			<input type="hidden" name="rid" value="rid777">
+			<textarea id="javaTpl" name="problem" cols="80" rows="15">{{.problem.Content}}</textarea><br>
+			<input type="submit">
+		</form>
 </div>
 {{template "footer.html" .}}
