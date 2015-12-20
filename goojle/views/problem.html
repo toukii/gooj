@@ -1,15 +1,18 @@
 {{template "header.html" .}}
 <div class="container">
-	<div>
+	<div class="col-md-8">			
+		<div class="content">
+				<form action="/oj/{{.problem.Id}}" method="post">
+					<input type="hidden" name="fid" value="{{.problem.Id}}">
+					<input type="hidden" name="fname" value="{{.FuncName}}">
+					<input type="hidden" name="rid" value="rid777">
+					<textarea id="javaTpl" name="problem" cols="80" rows="15">{{.problem.Content}}</textarea><br>
+					<input type="submit">
+				</form>
+		</div>
+	</div>
+	<div class="col-md-4 sidebar">
 		<textarea class="form-control" style="color:#656565;background-color:#e8edf2;" readonly="true" name="problem" rows="13">{{.problem.Desc}}</textarea><br>
 	</div>
-	<div class="subject-content" id="codeEditor"></div>
-		<form action="/oj/{{.problem.Id}}" method="post">
-			<input type="hidden" name="fid" value="{{.problem.Id}}">
-			<input type="hidden" name="fname" value="{{.FuncName}}">
-			<input type="hidden" name="rid" value="rid777">
-			<textarea id="javaTpl" name="problem" cols="80" rows="15">{{.problem.Content}}</textarea><br>
-			<input type="submit">
-		</form>
 </div>
 {{template "footer.html" .}}
