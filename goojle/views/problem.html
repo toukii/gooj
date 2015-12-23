@@ -12,7 +12,20 @@
 		</div>
 	</div>
 	<div class="col-md-4 sidebar">
-		<textarea class="form-control" style="color:#656565;background-color:#e8edf2;" readonly="true" name="problem" rows="13">{{.problem.Desc}}</textarea><br>
+		<textarea id="problemDesc" class="form-control" style="display:none;color:#656565;background-color:#e8edf2;" readonly="true" name="problem" rows="13">{{.problem.Desc}}</textarea>
+		<span id="markdownContent"></span>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$.ajax({
+				 url: 'http://182.254.132.59/markdown/',
+				 type: 'POST',
+				 data:{"rawContent":$("#problemDesc").val()},
+				 success: function(result) {
+				  	$("#markdownContent").html(result);
+				 }
+			});
+		});
+	</script>
 </div>
 {{template "footer.html" .}}
