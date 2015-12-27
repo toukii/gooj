@@ -13,6 +13,7 @@ import (
 	"strings"
 
 	"html/template"
+	"sync"
 )
 
 type MainController struct {
@@ -20,11 +21,12 @@ type MainController struct {
 }
 
 var (
-	problemURL  = "http://7xku3c.com1.z0.glb.clouddn.com/models.json"
-	problems    []gooj.Model
-	problemMap  map[string]gooj.Model
-	defaultpath string
-	RPC_Client  *rpc.Client
+	problemURL    = "http://7xku3c.com1.z0.glb.clouddn.com/models.json"
+	problems      []gooj.Model
+	problemMap    map[string]gooj.Model
+	defaultpath   string
+	RPC_Client    *rpc.Client
+	submit_LOCKER = sync.Mutex{}
 )
 
 func init() {
@@ -109,6 +111,8 @@ func submit(rw http.ResponseWriter, req *http.Request) []byte {
 		return goutils.ToByte("呵呵")
 	}
 	beego.Debug(content, path_, fid)
+	submit_LOCKER.Lock()
+	defer submit_LOCKER.Unlock()
 	cmd := exc.NewCMD("go test -v").Cd(defaultpath)
 	m := problemMap[fid]
 	m.Content = content
