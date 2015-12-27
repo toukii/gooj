@@ -7,19 +7,19 @@
   }
 </style>
 <div class="container">
-	<div class="col-md-8">			
+	<div class="col-md-7">			
 		<div class="content">
 			<form id="problem-form" action="/oj/{{.problem.Id}}" method="post">
 				<input type="hidden" name="fid" value="{{.problem.Id}}">
 				<input type="hidden" name="fname" value="{{.problem.FuncName}}">
 				<input type="hidden" name="rid" value="{{.rid}}">
-				<textarea id="problem-content" name="problem" cols="80" rows="15">{{.problem.Content}}</textarea><br>
+				<textarea id="problem-content" name="problem" cols="70" rows="15">{{.problem.Content}}</textarea><br>
 				<input type="button" id="submit-btn" value="commit">
 			</form>
 		</div>
 	</div>
-	<div class="col-md-4 sidebar">
-		<textarea id="problem-result" style="color: #00FF00;background-color:#000;font-size:14px;display:none" cols="80" rows="15" class=".hecker form-control" readonly="true"></textarea> 
+	<div class="col-md-5">
+		<textarea id="problem-result" style="color: #00FF00;background-color:#000;font-size:14px;display:none" cols="260" rows="9" class=".hecker form-control" readonly="true"></textarea> 
 		<span id="markdownContent">{{.problem.DescMD}}</span>
 	</div>
 </div>
