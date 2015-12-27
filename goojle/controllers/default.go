@@ -29,8 +29,8 @@ var (
 
 func init() {
 	defaultpath, _ = os.Getwd()
-	// problems = gooj.TiniuMs(problemURL)
-	problems = gooj.ToMs()
+	problems = gooj.TiniuMs(problemURL)
+	// problems = gooj.ToMs()
 	problemMap = make(map[string]gooj.Model)
 	RPC_Client = rpcsv.RPCClient("182.254.132.59:8800")
 	defer RPC_Client.Close()
