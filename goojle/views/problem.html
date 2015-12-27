@@ -1,31 +1,45 @@
 {{template "header.html" .}}
+<style type="text/css">
+  .hecker{
+    color: #00FF00;
+    background-color:#000;
+    font-size:14px;
+  }
+</style>
 <div class="container">
 	<div class="col-md-8">			
 		<div class="content">
-				<form action="/oj/{{.problem.Id}}" method="post">
-					<input type="hidden" name="fid" value="{{.problem.Id}}">
-					<input type="hidden" name="fname" value="{{.FuncName}}">
-					<input type="hidden" name="rid" value="rid777">
-					<textarea id="javaTpl" name="problem" cols="80" rows="15">{{.problem.Content}}</textarea><br>
-					<input type="submit">
-				</form>
+			<form id="problem-form" action="/oj/{{.problem.Id}}" method="post">
+				<input type="hidden" name="fid" value="{{.problem.Id}}">
+				<input type="hidden" name="fname" value="{{.FuncName}}">
+				<input type="hidden" name="rid" value="rid777">
+				<textarea id="problem-content" name="problem" cols="80" rows="15">{{.problem.Content}}</textarea><br>
+				<input type="button" id="submit-btn" value="commit">
+			</form>
 		</div>
 	</div>
 	<div class="col-md-4 sidebar">
-		<textarea id="problemDesc" class="form-control" style="display:none;color:#656565;background-color:#e8edf2;" readonly="true" name="problem" rows="13">{{.problem.Desc}}</textarea>
-		<span id="markdownContent"></span>
+		<textarea id="problem-result" style="color: #00FF00;background-color:#000;font-size:14px;display:none" cols="80" rows="15" class=".hecker form-control" readonly="true"></textarea> 
+		<span id="markdownContent">{{.problem.DescMD}}</span>
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function(){
+</div>
+<script type="text/javascript">
+	$(document).ready(function (argument) {
+		// body...
+		$("#submit-btn").click(function (argument) {
+			// body...
 			$.ajax({
-				 url: 'http://182.254.132.59/markdown/',
+				 url: '/oj/{{.problem.Id}}',
 				 type: 'POST',
-				 data:{"rawContent":$("#problemDesc").val()},
+				 data:{"fid":"{{.problem.Id}}","fname":"{{.FuncName}}","rid":"rid777","problem":$("#problem-content").val()},
 				 success: function(result) {
-				  	$("#markdownContent").html(result);
+				  	$("#problem-result").text(result);
+				  	console.log(result);
 				 }
 			});
+			$("#problem-result").css("display","inline");
+			$("#problem-result").autoSize();
 		});
-	</script>
-</div>
+	});
+</script>
 {{template "footer.html" .}}
