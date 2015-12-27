@@ -29,7 +29,7 @@ type Model struct {
 	Id        string `json:"id"`
 	Title     string `json:"title"`
 	Desc      string `json:"desc"`
-	DescMD      string `json:"descmd"`
+	DescMD      interface{} `json:"descmd"`
 	FuncName  string `json:"func_name"`
 	Content   string `json:"content"`
 	ArgsType  string `json:"args_type"`
