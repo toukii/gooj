@@ -35,7 +35,7 @@ func Oj(result chan string, t *testing.T) {
 			}
 		}
 	}
-	println(time.Now().Sub(t1))
+	fmt.Printf("cost: %v\n",time.Now().Sub(t1))
 	result <- "AC"
 }
 

@@ -13,19 +13,26 @@
 				<input type="hidden" name="fid" value="{{.problem.Id}}">
 				<input type="hidden" name="fname" value="{{.problem.FuncName}}">
 				<input type="hidden" name="rid" value="{{.rid}}">
-				<textarea id="problem-content" name="problem" cols="70" rows="15">{{.problem.Content}}</textarea><br>
-				<input type="button" id="submit-btn" value="commit">
+				<textarea id="problem-content" name="problem" cols="70" rows="15">{{.problem.Content}}</textarea>
 			</form>
 		</div>
 	</div>
 	<div class="col-md-5">
+		<label id="submit-btn" style="background-color:#aaa;padding:10px 8px;">commit</label><br>
 		<textarea id="problem-result" style="color: #00FF00;background-color:#000;font-size:14px;display:none" cols="260" rows="8" class=".hecker form-control" readonly="true"></textarea> 
 		<span id="markdownContent">{{.problem.DescMD}}</span>
 	</div>
 </div>
 <script type="text/javascript">
 	$(document).ready(function (argument) {
-		// body...
+		// body..
+		/*$("#problem-result").click(function (argument) {
+			$("#submit-btn").toggle(function (argument) {
+				$("#submit-btn").css("display","none");
+			},function (argument) {
+				$("#submit-btn").css("display","inline");
+			});
+		});*/
 		$("#submit-btn").click(function (argument) {
 			$("#problem-result").text("");
 			// body...
@@ -35,6 +42,7 @@
 				 data:{"fid":"{{.problem.Id}}","fname":"{{.problem.FuncName}}","rid":"{{.rid}}","problem":$("#problem-content").val()},
 				 success: function(result) {
 				  	$("#problem-result").text(result);
+				  	// $("#submit-btn").css("display","none");
 				  	console.log(result);
 				 }
 			});
