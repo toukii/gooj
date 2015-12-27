@@ -1,23 +1,22 @@
-package goojt
+package gooj
 
 import (
-	"github.com/qiniu/log"
 	"testing"
 	"time"
 	"reflect"
+	"fmt"
 )
 
-func Oj(result chan string) {
+func Oj(result chan string, t *testing.T) {
 	retc := make(chan bool)
 	t1 := time.Now()
 	go func() {
 		for _, it := range testcases {
 			ret := {{.FUNC}}(it.in)
 			if !reflect.DeepEqual(ret, it.out) {
+				t.Errorf("Got:%v\n", ret)
+				fmt.Printf("TestCase: %v, wanted:%v\n", it.in, it.out)
 				retc <- false
-				log.Println(it.in)
-				log.Println("want", it.out)
-				log.Println("get", ret)
 				return
 			}
 			retc <- true
@@ -36,7 +35,7 @@ func Oj(result chan string) {
 			}
 		}
 	}
-	log.Info(time.Now().Sub(t1))
+	println(time.Now().Sub(t1))
 	result <- "AC"
 }
 
@@ -55,6 +54,6 @@ func init() {
 
 func TestOj(t *testing.T) {
 	result := make(chan string)
-	go Oj(result)
-	log.Info(<-result)
+	go Oj(result, t)
+	<-result
 }
