@@ -11,8 +11,8 @@
 		<div class="content">
 			<form id="problem-form" action="/oj/{{.problem.Id}}" method="post">
 				<input type="hidden" name="fid" value="{{.problem.Id}}">
-				<input type="hidden" name="fname" value="{{.FuncName}}">
-				<input type="hidden" name="rid" value="rid777">
+				<input type="hidden" name="fname" value="{{.problem.FuncName}}">
+				<input type="hidden" name="rid" value="{{.rid}}">
 				<textarea id="problem-content" name="problem" cols="80" rows="15">{{.problem.Content}}</textarea><br>
 				<input type="button" id="submit-btn" value="commit">
 			</form>
@@ -27,18 +27,18 @@
 	$(document).ready(function (argument) {
 		// body...
 		$("#submit-btn").click(function (argument) {
+			$("#problem-result").text("");
 			// body...
 			$.ajax({
 				 url: '/oj/{{.problem.Id}}',
 				 type: 'POST',
-				 data:{"fid":"{{.problem.Id}}","fname":"{{.FuncName}}","rid":"rid777","problem":$("#problem-content").val()},
+				 data:{"fid":"{{.problem.Id}}","fname":"{{.problem.FuncName}}","rid":"{{.rid}}","problem":$("#problem-content").val()},
 				 success: function(result) {
 				  	$("#problem-result").text(result);
 				  	console.log(result);
 				 }
 			});
 			$("#problem-result").css("display","inline");
-			$("#problem-result").autoSize();
 		});
 	});
 </script>

@@ -78,6 +78,7 @@ func (c *MainController) GetPro() {
 	var id int
 	c.Ctx.Input.Bind(&id, ":id")
 	c.Data["problem"] = problemMap[fmt.Sprintf("%d", id)]
+	c.Data["rid"] = strings.Split(c.Ctx.Request.RemoteAddr, ":")[1]
 	c.TplNames = "problem.html"
 }
 
@@ -104,7 +105,7 @@ func submit(rw http.ResponseWriter, req *http.Request) []byte {
 	path_ := req.Form.Get("rid")
 	content := req.Form.Get("problem")
 	if strings.Contains(content, `"os`) {
-		// rw.Write(goutils.ToByte("呵呵"))
+		rw.Write(goutils.ToByte("呵呵"))
 		return goutils.ToByte("呵呵")
 	}
 	beego.Debug(content, path_, fid)
@@ -117,5 +118,6 @@ func submit(rw http.ResponseWriter, req *http.Request) []byte {
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
 	goutils.CheckErr(err)
 	rw.Write(ret)
+	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(10)
 	return ret
 }
