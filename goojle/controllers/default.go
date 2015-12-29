@@ -4,15 +4,12 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/everfore/exc"
-	"github.com/everfore/rpcsv"
 	"github.com/shaalx/gooj"
 	"github.com/shaalx/goutils"
 	"net/http"
-	"net/rpc"
 	"os"
 	"strings"
 
-	"html/template"
 	"sync"
 )
 
@@ -25,7 +22,6 @@ var (
 	problems      []gooj.Model
 	problemMap    map[string]gooj.Model
 	defaultpath   string
-	RPC_Client    *rpc.Client
 	submit_LOCKER = sync.Mutex{}
 )
 
@@ -34,16 +30,7 @@ func init() {
 	problems = gooj.TiniuMs(problemURL)
 	// problems = gooj.ToMs()
 	problemMap = make(map[string]gooj.Model)
-	RPC_Client = rpcsv.RPCClient("182.254.132.59:8800")
-	defer RPC_Client.Close()
 	for _, it := range problems {
-		in := goutils.ToByte(it.Desc)
-		out := make([]byte, 0, 1)
-		if err := rpcsv.Markdown(RPC_Client, &in, &out); err != nil {
-			it.Desc = it.Desc
-		} else {
-			it.DescMD = template.HTML(goutils.ToString(out))
-		}
 		problemMap[it.Id] = it
 	}
 }
@@ -52,17 +39,7 @@ func init() {
 func (c *MainController) Update() {
 	problems = gooj.TiniuMs(problemURL)
 	problemMap = make(map[string]gooj.Model)
-	RPC_Client = rpcsv.RPCClient("182.254.132.59:8800")
-	defer RPC_Client.Close()
 	for _, it := range problems {
-		in := goutils.ToByte(it.Desc)
-		out := make([]byte, 0, 1)
-		if err := rpcsv.Markdown(RPC_Client, &in, &out); err != nil {
-			it.Desc = it.Desc
-		} else {
-			it.DescMD = template.HTML(goutils.ToString(out))
-		}
-		fmt.Println(it)
 		problemMap[it.Id] = it
 	}
 	c.Redirect("/", 302)

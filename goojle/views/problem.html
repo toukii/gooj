@@ -20,19 +20,28 @@
 	<div class="col-md-5">
 		<label id="submit-btn" style="background-color:#aaa;padding:10px 8px;">commit</label><br>
 		<textarea id="problem-result" style="color: #00FF00;background-color:#000;font-size:14px;display:none" cols="260" rows="8" class=".hecker form-control" readonly="true"></textarea> 
-		<span id="markdownContent">{{.problem.DescMD}}</span>
+		<!-- <span id="rawContent">{{.problem.Desc}}</span> -->
+		<span id="markdownContent"></span>
 	</div>
 </div>
 <script type="text/javascript">
 	$(document).ready(function (argument) {
-		// body..
-		/*$("#problem-result").click(function (argument) {
-			$("#submit-btn").toggle(function (argument) {
-				$("#submit-btn").css("display","none");
-			},function (argument) {
-				$("#submit-btn").css("display","inline");
-			});
-		});*/
+		function CallbackFunc (data){
+		}
+		$.ajax({  
+	        type : "get",  
+	        url : "http://182.254.132.59/markdownCB?callback=?",
+	        dataType:"jsonp",
+        	jsonpCallback:"CallbackFunc",
+        	data:{"rawContent":{{.problem.Desc}}},
+	        success : function(data){
+	            $("#markdownContent").html(data.mddata);
+	        	console.log(data.mddata);
+	        },  
+	        error:function(){  
+	            alert('fail');  
+	        }
+	    });
 		$("#submit-btn").click(function (argument) {
 			$("#problem-result").text("");
 			// body...
