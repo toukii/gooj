@@ -64,6 +64,7 @@ func (c *MainController) GetPro() {
 	c.Ctx.Input.Bind(&id, ":id")
 	c.Data["problem"] = problemMap[fmt.Sprintf("%d", id)]
 	c.Data["rid"] = strings.Split(c.Ctx.Request.RemoteAddr, ":")[1]
+	c.Data["title"] = "Probs"
 	c.TplNames = "problem.html"
 }
 
