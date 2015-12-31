@@ -23,6 +23,7 @@ var (
 	problemMap    map[string]gooj.Model
 	defaultpath   string
 	submit_LOCKER = sync.Mutex{}
+	submitID      int64
 )
 
 func init() {
@@ -96,9 +97,11 @@ func submit(rw http.ResponseWriter, req *http.Request) []byte {
 	beego.Info(m)
 	err := gooj.GenerateOjModle(path_, &m)
 	goutils.CheckErr(err)
+	submitID++
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
 	goutils.CheckErr(err)
 	rw.Write(ret)
-	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(10)
+	fmt.Println(goutils.ToString(ret))
+	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(5)
 	return ret
 }
