@@ -18,7 +18,8 @@ type MainController struct {
 }
 
 var (
-	problemURL    = "http://7xku3c.com1.z0.glb.clouddn.com/models.json"
+	// problemURL    = "http://7xku3c.com1.z0.glb.clouddn.com/models.json"
+	problemURL    = "https://raw.githubusercontent.com/shaalx/gooj/master/goojle/models.json"
 	problems      []gooj.Model
 	problemMap    map[string]gooj.Model
 	defaultpath   string
