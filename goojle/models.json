@@ -1,7 +1,7 @@
 [
 	{
 		"id": "0",
-		"title": "reverse",
+		"title": "翻转数组",
 		"desc": "### reverse the array",
 		"func_name": "reverse",
 		"content": "package goojt\n\nfunc reverse(in []int) []int {\n\tleng := len(in)\n\tl := leng / 2\n\tfor i := 0; i \u003c l; i++ {\n\t\tin[i], in[leng-1-i] = in[leng-1-i], in[i]\n\t}\n\treturn in\n}",
@@ -11,8 +11,8 @@
 	},
 	{
 		"id": "1",
-		"title": "sort",
-		"desc": "### sort the array",
+		"title": "数组排序",
+		"desc": "#### sort the array",
 		"func_name": "sort",
 		"content": "package goojt\n\nfunc sort(in []int) []int {\n\t return in\n}",
 		"args_type": "[]int",
@@ -21,22 +21,62 @@
 	},
 	{
 		"id": "2",
-		"title": "中位数",
-		"desc": "### find mid of the array",
-		"func_name": "mid",
-		"content": "package goojt\n\nfunc mid(in []int) int {\n\t return 1\n}",
-		"args_type": "[]int",
-		"rets_type": "int",
-		"test_cases": "{in: []int{1, 2, 3}, out:2},"
+		"title": "查找最长数字串",
+		"desc": "#### 在字符串中找出连续最长的数字串，若有相同长度的数字串则找出数字串中各字符相加后和更大的串。",
+		"func_name": "findLongestMax",
+		"content": "package goojt\n\nfunc findLongestMax(in string) string {\n\n\t return \"\"\n}",
+		"args_type": "string",
+		"rets_type": "string",
+		"test_cases": "{in: \"8bss333v235\", out:\"235\"},"
 	},
 	{
 		"id": "3",
 		"title": "找老乡",
-		"desc": "大学的同学来自全国各地，对于远离家乡步入陌生大学校园的大一新生来说，碰到老乡是多么激动的一件事，于是大家都热衷于问身边的同学是否与自己同乡，来自新疆的小尼尤其热衷。但是大家都不告诉小尼他们来自哪里，只是说与谁同乡，从所给的信息中，你能告诉小尼有多少人确定是她的同乡吗？输入每个测试实例首先包括2个整数，**N（1 <= N <= 1000），M(0 <= M <= N*(N-1)/2)**，代表现有N个人（用1~N编号）和M组关系；在接下来的M行里，每行包括2个整数，a，b，代表a跟b是同乡；当N = 0，M = 0输入结束；已知1表示小尼本人输出对于每个测试实例，输出一个整数，代表确定是小尼同乡的人数.\n\n* 样例输入:\n\n\n\n\t\t3 1\n\t\t2 3\n\t\t5 4\n\t\t1 2\n\t\t3 4\n\t\t2 5\n\t\t3 2\n\t\t0 0\n\n\n* 样例输出:\n\n\n\t\t0\n\t\t4",
+		"desc": "大学的同学来自全国各地，对于远离家乡步入陌生大学校园的大一新生来说，碰到老乡是多么激动的一件事，于是大家都热衷于问身边的同学是否与自己同乡，来自新疆的小尼尤其热衷。但是大家都不告诉小尼他们来自哪里，只是说与谁同乡，从所给的信息中，你能告诉小尼有多少人确定是她的同乡吗？\n\n输入每个测试实例首先包括2个整数，**N（1 <= N <= 1000），M(0 <= M <= N*(N-1)/2)**，代表现有N个人（用1~N编号）和M组关系；在接下来的M行里，每行包括2个整数，a，b，代表a跟b是同乡；当N = 0，M = 0输入结束；已知1表示小尼本人输出对于每个测试实例，输出一个整数，代表确定是小尼同乡的人数.\n\n* 样例输入:\n\n\n\n\t\t3 1\n\t\t2 3\n\t\t5 4\n\t\t1 2\n\t\t3 4\n\t\t2 5\n\t\t3 2\n\t\t0 0\n\n\n* 样例输出:\n\n\n\t\t0\n\t\t4",
 		"func_name": "neb",
 		"content": "package goojt\n\nfunc neb(in []int) int {\n\t return 1\n}",
 		"args_type": "[]int",
 		"rets_type": "int",
 		"test_cases": "{in: []int{1, 2, 3}, out:2},"
+	},
+	{
+		"id": "4",
+		"title": "数组分两组",
+		"desc": "#### 把数组分为两组，使两组和相等",
+		"func_name": "spiltEqual",
+		"content": "package goojt\n\nfunc spiltEqual(in []int) (ret [2][]int) {\n\n\t return ret\n}",
+		"args_type": "[]int",
+		"rets_type": "[2][]int",
+		"test_cases": "{in: []int{1, 2, 3, 4}, out:[2][]int{[]int{1, 4},[]int{2, 3}}},"
+	},
+	{
+		"id": "5",
+		"title": "数组分两组-2",
+		"desc": "#### 数组元素使用加减法，运算结果为0",
+		"func_name": "spiltEqual2",
+		"content": "package goojt\n\nfunc spiltEqual2(in []int) (ret [2][]int) {\n\n\t return ret\n}",
+		"args_type": "[]int",
+		"rets_type": "[2][]int",
+		"test_cases": "{in: []int{1, 3, 3, 5}, out:[2][]int{[]int{1, 3},[]int{3, 5}}},"
+	},
+	{
+		"id": "6",
+		"title": "字母概率",
+		"desc": "### 字母的出现概率\n\n\n* 设计算法，输出随机长度的字符串，使得各个字母**abcdefghijklmnopqrstuvwxyz**出现概率的百分比约为：\n\n```\n8.167,1.492,2.782,4.253,12.702,2.228,2.015,6.094,6.966,0.153,0.772,4.025,2.406,6.749,7.507,1.929,0.095,5.987,6.327,9.056,2.758,0.978,2.360,0.150,1.974,0.074\n```\n",
+		"func_name": "percentString",
+		"content": "package goojt\n\nfunc percentString(any interface{}) string {\n\n\t return \"\"\n}\n\nvar (\n\tpercent = []float64{8.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406, 6.749, 7.507, 1.929, 0.095, 5.987, 6.327, 9.056, 2.758, 0.978, 2.360, 0.150, 1.974, 0.074}\n\tletter  = []byte{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}\n)\n",
+		"args_type": "interface{}",
+		"rets_type": "string",
+		"test_cases": "{in: nil, out:\"--待检验--\"},"
+	},
+	{
+		"id": "7",
+		"title": "左移右移",
+		"desc": "### 两个字符串，左右移动最少次数，使其相等。\n**左移动**：最左边的字符移动到字符串的最右边。\n\n**右移动**：最右边的字符移动到字符串的最左边。\n\n* 求最少移动的次数",
+		"func_name": "mixMove",
+		"content": "package goojt\n\nfunc mixMove(in []string) int {\n\n\t return 0\n}",
+		"args_type": "[]string",
+		"rets_type": "int",
+		"test_cases": "{in: []string{\"abcddabcabc\",\"abcabcddabc\"}, out:3},"
 	}
 ]
