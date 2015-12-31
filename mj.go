@@ -26,15 +26,14 @@ import (
 }*/
 
 type Model struct {
-	Id        string      `json:"id"`
-	Title     string      `json:"title"`
-	Desc      string      `json:"desc"`
-	DescMD    interface{} `json:"descMD"`
-	FuncName  string      `json:"func_name"`
-	Content   string      `json:"content"`
-	ArgsType  string      `json:"args_type"`
-	RetsType  string      `json:"rets_type"`
-	TestCases string      `json:"test_cases"`
+	Id        string `json:"id"`
+	Title     string `json:"title"`
+	Desc      string `json:"desc"`
+	FuncName  string `json:"func_name"`
+	Content   string `json:"content"`
+	ArgsType  string `json:"args_type"`
+	RetsType  string `json:"rets_type"`
+	TestCases string `json:"test_cases"`
 }
 
 func NewModel() Model {
