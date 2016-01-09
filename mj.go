@@ -34,6 +34,7 @@ type Model struct {
 	ArgsType  string `json:"args_type"`
 	RetsType  string `json:"rets_type"`
 	TestCases string `json:"test_cases"`
+	Online    bool   `json:"online"`
 }
 
 func NewModel() Model {
@@ -58,6 +59,7 @@ func reverse(in []int) []int {
 		{in: []int{1, 2, 4}, out: []int{4, 2, 1}},
 		{in: []int{1, 5, 3}, out: []int{3, 5, 1}},
 		{in: []int{6, 2, 3}, out: []int{3, 2, 6}},`,
+		Online: false,
 	}
 }
 
