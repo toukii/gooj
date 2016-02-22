@@ -1,5 +1,6 @@
 *.exe
 *.exe~
+*.tmp
 gooj
 gooj/gooj
 gooj/rid777/*
