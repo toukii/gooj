@@ -55,7 +55,7 @@ func (c *MainController) Update() {
 func (c *MainController) Get() {
 	c.Data["title"] = "PROBLEM"
 	c.Data["problems"] = problems
-	c.TplNames = "list.html"
+	c.TplName = "list.html"
 }
 
 // @router /problem/:id:int [get]
@@ -63,9 +63,11 @@ func (c *MainController) GetPro() {
 	var id int
 	c.Ctx.Input.Bind(&id, ":id")
 	c.Data["problem"] = problemMap[fmt.Sprintf("%d", id)]
-	c.Data["rid"] = strings.Split(c.Ctx.Request.RemoteAddr, ":")[1]
+	addrsplit := strings.Split(c.Ctx.Request.RemoteAddr, ":")
+	rid := addrsplit[len(addrsplit)-1]
+	c.Data["rid"] = rid
 	c.Data["title"] = "Probs"
-	c.TplNames = "problem.html"
+	c.TplName = "problem.html"
 }
 
 type Input struct {
@@ -81,7 +83,7 @@ func (c *MainController) OJ() {
 	beego.Info(input)
 	beego.Info("problem******************:", c.Ctx.Input.Param("problem"))
 	res := submit(c.Ctx.ResponseWriter, c.Ctx.Request)
-	c.TplNames = "result.html"
+	c.TplName = "result.html"
 	c.Data["result"] = goutils.ToString(res)
 }
 
