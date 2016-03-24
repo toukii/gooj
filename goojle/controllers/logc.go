@@ -3,14 +3,44 @@ package controllers
 import (
 	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/everfore/oauth/oauth2"
 	"github.com/shaalx/gooj/goojle/models"
+	"github.com/shaalx/jsnm"
 	"html/template"
 	"strconv"
 	"strings"
 )
 
+var (
+	OA *oauth2.OAGithub
+)
+
+func init() {
+	OA = oauth2.NewOAGithub("8ba2991113e68b4805c1", "b551e8a640d53904d82f95ae0d84915ba4dc0571", "user", "http://goojle.daoapp.io/callback")
+}
+
 type LogController struct {
 	beego.Controller
+}
+
+// @router /githubsignin [get]
+func (c *LogController) signin() {
+	c.Redirect(OA.AuthURL(), 302)
+}
+
+// @router /callback [get]
+func (c *LogController) callback() {
+	req := c.Ctx.Request
+	rw := c.Ctx.ResponseWriter
+	fmt.Printf("%s\n", req.RemoteAddr)
+	b, err := OA.NextStep(req)
+	if nil != err {
+		rw.Write([]byte(err.Error()))
+		return
+	}
+	jv := jsnm.BytesFmt(b)
+	fmt.Fprint(rw, jv.MapData())
+
 }
 
 // @router /login [get]
