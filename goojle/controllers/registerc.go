@@ -8,8 +8,7 @@ import (
 )
 
 type RegisterController struct {
-	// LogController
-	beego.Controller
+	LogController
 }
 
 // @router /register [get]
@@ -33,7 +32,6 @@ func (c *RegisterController) Register() {
 	if n <= 0 {
 		c.Abort("401")
 	}
-	c.Redirect("/", 302)
-	// c.LogController.LoginSetSession(n)
-	// c.LogController.Get()
+	c.LogController.LoginSetSession(n)
+	c.LogController.Get()
 }
