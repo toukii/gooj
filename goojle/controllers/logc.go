@@ -40,7 +40,8 @@ func (c *LogController) Callback() {
 		return
 	}
 	jv := jsnm.BytesFmt(b)
-	fmt.Fprint(rw, jv.MapData())
+	fmt.Print(jv.MapData())
+	rw.Write(b)
 
 }
 
