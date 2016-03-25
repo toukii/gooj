@@ -6,6 +6,20 @@ import (
 
 func init() {
 
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"],
+		beego.ControllerComments{
+			"Signin",
+			`/githubsignin`,
+			[]string{"get"},
+			nil})
+
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"],
+		beego.ControllerComments{
+			"Callback",
+			`/callback`,
+			[]string{"get"},
+			nil})
+
 	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
 		beego.ControllerComments{
 			"Update",

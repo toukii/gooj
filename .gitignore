@@ -1,6 +1,7 @@
 *.exe
 *.exe~
 *.tmp
+goojle/routers/comments*
 gooj
 gooj/gooj
 gooj/rid777/*
