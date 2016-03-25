@@ -1,4 +1,5 @@
 {{template "header.html" .}}
+<div class="container projects">
 	<div>
 		<form id="registerform" accept="/register" method="post">
 			{{.xsrfdata}}
@@ -8,4 +9,5 @@
 			<input type="submit">
 		</form>
 	</div>
+</div>	
 {{template "footer.html" .}}
