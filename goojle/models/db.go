@@ -81,6 +81,19 @@ func RemarksById(id int) []Remark {
 	return remarks
 }
 
+func UserByName(name string) *User {
+	var usr User
+	if err := ORM.QueryTable((*User)(nil)).Filter("Name", name).One(&usr); err != nil {
+		fmt.Println(err, name)
+		return nil
+	}
+	if usr.Id <= 0 {
+		return nil
+	}
+	fmt.Println(usr)
+	return &usr
+}
+
 func UserById(id int) *User {
 	var usr User
 	if err := ORM.QueryTable((*User)(nil)).Filter("Id", id).One(&usr); err != nil {

@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// beego.EnableXSRF = true
-	go TaskSessionGC()
+	// go TaskSessionGC()
 	beego.Run()
 	if err := recover(); err != nil {
 		fmt.Println(err)

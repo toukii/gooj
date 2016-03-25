@@ -22,30 +22,16 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"],
 		beego.ControllerComments{
-			"LoadLogin",
-			`/login`,
+			"LoadRegister",
+			`/register`,
 			[]string{"get"},
 			nil})
 
 	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"],
 		beego.ControllerComments{
-			"Login",
-			`/login`,
+			"Register",
+			`/register`,
 			[]string{"post"},
-			nil})
-
-	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"],
-		beego.ControllerComments{
-			"Logout",
-			`/logout`,
-			[]string{"get"},
-			nil})
-
-	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:LogController"],
-		beego.ControllerComments{
-			"User",
-			`/user`,
-			[]string{"get"},
 			nil})
 
 	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
@@ -76,18 +62,32 @@ func init() {
 			[]string{"post"},
 			nil})
 
-	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:RegisterController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:RegisterController"],
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
 		beego.ControllerComments{
-			"LoadRegister",
-			`/register`,
+			"LoadLogin",
+			`/login`,
 			[]string{"get"},
 			nil})
 
-	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:RegisterController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:RegisterController"],
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
 		beego.ControllerComments{
-			"Register",
-			`/register`,
+			"Login",
+			`/login`,
 			[]string{"post"},
+			nil})
+
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
+		beego.ControllerComments{
+			"Logout",
+			`/logout`,
+			[]string{"get"},
+			nil})
+
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
+		beego.ControllerComments{
+			"User",
+			`/user`,
+			[]string{"get"},
 			nil})
 
 }

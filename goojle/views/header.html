@@ -27,9 +27,14 @@
 			<a class="navbar-brand hidden-sm" href="/update"><h4>Update</h4></a>
 			
 			<ul class="nav navbar-nav navbar-right hidden-sm">
-				<li><a class="navbar-brand hidden-sm" href="/register">Logup</a></li>
-				<li><a class="navbar-brand hidden-sm" href="/login">Login</a></li>
-				<li><a class="navbar-brand hidden-sm" href="/githubsignin">GitHub-In</a></li>
+				{{if .curUser}}
+					<li><a class="navbar-brand hidden-sm" href="/user">{{.curUser.Name}}</a></li>
+					<li><a class="navbar-brand hidden-sm" href="/logout">Logout</a></li>
+				{{else}}
+					<li><a class="navbar-brand hidden-sm" href="/register">Logup</a></li>
+					<li><a class="navbar-brand hidden-sm" href="/login">Login</a></li>
+					<li><a class="navbar-brand hidden-sm" href="/githubsignin">GitHub-In</a></li>
+				{{end}}
           	</ul>
 		</div>
 	</div>
