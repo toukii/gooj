@@ -81,8 +81,8 @@ func (c *MainController) OJ() {
 	beego.Info(input)
 	beego.Info("problem******************:", c.Ctx.Input.Param("problem"))
 	res := submit(c.Ctx.ResponseWriter, c.Ctx.Request)
-	c.TplName = "result.html"
 	c.Data["result"] = goutils.ToString(res)
+	c.TplName = "result.html"
 }
 
 func submit(rw http.ResponseWriter, req *http.Request) []byte {

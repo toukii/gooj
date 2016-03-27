@@ -23,6 +23,10 @@ type LogController struct {
 	SessionController
 }
 
+func (c *LogController) Prepare() {
+	c.SessionController.Prepare()
+}
+
 // @router /githubsignin [get]
 func (c *LogController) Signin() {
 	fmt.Println(OA.AuthURL())
