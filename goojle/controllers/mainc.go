@@ -95,11 +95,14 @@ func (c *MainController) OJ() {
 	} else {
 		slt.User = models.UserByName("error")
 	}
-	// slt.Content = content
-	slt.Content = template.HTMLEscapeString(content)
+	slt.Content = content
+	// slt.Content = template.HTMLEscapeString(content)
 	ffid, _ := c.GetInt("fid")
 	slt.Problem = models.ProblemById(ffid)
-	models.ORM.Insert(&slt)
+	n, dberr := models.ORM.Insert(&slt)
+	if goutils.CheckErr(dberr) {
+
+	}
 	// insert into db
 
 	submit_LOCKER.Lock()
@@ -113,10 +116,16 @@ func (c *MainController) OJ() {
 	submitID++
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
 	goutils.CheckErr(err)
-	fmt.Println(goutils.ToString(ret))
+	result := goutils.ToString(ret)
 	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(5)
 
 	c.Ctx.ResponseWriter.Write(ret)
+	fmt.Println("n =", n)
+	if n > 0 {
+		slt.Result = result
+		slt.Id = int(n)
+		models.ORM.Update(&slt)
+	}
 	// c.Data["result"] = goutils.ToString(res)
 	// c.TplName = "result.html"
 }

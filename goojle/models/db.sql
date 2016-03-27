@@ -25,3 +25,5 @@ create table remark(
 	content text,
 	created datetime
 )default charset=utf8;
+
+alter table solution add result text;

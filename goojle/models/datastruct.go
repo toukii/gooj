@@ -73,6 +73,7 @@ type Solution struct {
 	Id      int       `orm:"id;pk"`
 	User    *User     `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
 	Problem *Problem  `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
-	Content string    `orm:"content" form:"content"`
+	Content string    `orm:"content;null" form:"content"`
+	Result  string    `orm:"result;null" form:"result"`
 	Create  time.Time `orm:"auto_now_add;column(created);type(datetime)"`
 }
