@@ -12,7 +12,7 @@ func init() {
 	// orm.RegisterDataBase("default", "mysql", "uEIYt69vVZXOJDok:pQCautZUg6ji0fdmL@tcp(10.10.26.58:3306)/k3MHIXiO61hr5vC0?charset=utf8")
 	// orm.RegisterDataBase("default", "mysql", "cdb_outerroot:root1234@tcp(55c354e17de4e.sh.cdb.myqcloud.com:7276)/session?charset=utf8")
 	orm.RegisterDataBase("default", "mysql", "goojle:Goojle123@tcp(121.42.161.248:3306)/gooj?charset=utf8")
-	orm.RegisterModel(new(User), new(Topic), new(Remark))
+	orm.RegisterModel(new(User), new(Problem), new(Solution), new(Remark), new(Topic))
 	ORM = orm.NewOrm()
 	orm.Debug = true
 }
@@ -21,6 +21,14 @@ var ORM orm.Ormer
 
 func RegisterUser(usr *User) int {
 	n, err := ORM.Insert(usr)
+	if err != nil {
+		return -1
+	}
+	return int(n)
+}
+
+func PublishProblem(prob *Problem) int {
+	n, err := ORM.Insert(prob)
 	if err != nil {
 		return -1
 	}
@@ -62,6 +70,14 @@ func AllTopics() []Topic {
 		return nil
 	}
 	return topics
+}
+
+func ProblemById(id int) *Problem {
+	var prob Problem
+	if err := ORM.QueryTable((*Problem)(nil)).Filter("Id", id).RelatedSel().One(&prob); err != nil {
+		return nil
+	}
+	return &prob
 }
 
 func TopicById(id int) *Topic {

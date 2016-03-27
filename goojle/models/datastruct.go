@@ -24,12 +24,6 @@ func (u *User) Check() int {
 	return CheckUser(u)
 }
 
-// func (u *User) TabelUnique() [][]string {
-// 	return [][]string{
-// 		[]string{"Name"},
-// 	}
-// }
-
 type Topic struct {
 	Id      int       `orm:"id;pk" form:"-"`
 	User    *User     `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
@@ -42,9 +36,17 @@ func (t *Topic) Publish() error {
 	return PublishTopic(t)
 }
 
+/*create table remark(
+	id int auto_increment primary key,
+	user_id int not null,
+	solution_id int not null,
+	content text,
+	created datetime
+)*/
 type Remark struct {
 	Id      int       `orm:"id;pk" form:"-"`
 	User    *User     `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
+	Problem *Problem  `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
 	Content string    `orm:"content" form:"content"`
 	Topic   *Topic    `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
 	Create  time.Time `orm:"auto_now_add;column(created);type(datetime)"`
@@ -52,4 +54,25 @@ type Remark struct {
 
 func (r *Remark) Publish() error {
 	return PublishRemark(r)
+}
+
+type Problem struct {
+	Id      int    `orm:"id;pk"`
+	User    *User  `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
+	Content string `orm:"content" form:"content"`
+}
+
+/*create table solution(
+	id int auto_increment primary key,
+	user_id int not null,
+	problem_id char(100) not null,
+	content text,
+	created datetime
+)*/
+type Solution struct {
+	Id      int       `orm:"id;pk"`
+	User    *User     `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
+	Problem *Problem  `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
+	Content string    `orm:"content" form:"content"`
+	Create  time.Time `orm:"auto_now_add;column(created);type(datetime)"`
 }

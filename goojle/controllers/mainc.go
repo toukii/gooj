@@ -8,7 +8,8 @@ import (
 	"github.com/shaalx/gooj/goojle/models"
 	"github.com/shaalx/goutils"
 	"html/template"
-	"net/http"
+	// "net/http"
+	"github.com/shaalx/jsnm"
 	"os"
 	"strings"
 	"sync"
@@ -76,25 +77,31 @@ type Input struct {
 
 // @router /oj/:id:int [post]
 func (c *MainController) OJ() {
-	var input Input
-	c.ParseForm(&input)
-	beego.Info(input)
-	beego.Info("problem******************:", c.Ctx.Input.Param("problem"))
-	res := submit(c.Ctx.ResponseWriter, c.Ctx.Request)
-	c.Data["result"] = goutils.ToString(res)
-	c.TplName = "result.html"
-}
-
-func submit(rw http.ResponseWriter, req *http.Request) []byte {
-	req.ParseForm()
-	fid := req.Form.Get("fid")
-	path_ := req.Form.Get("rid")
-	content := req.Form.Get("problem")
+	// res := submit(c.Ctx.ResponseWriter, c.Ctx.Request)
+	fid := c.GetString("fid")
+	path_ := c.GetString("rid")
+	content := c.GetString("problem")
 	if strings.Contains(content, `"os`) {
-		rw.Write(goutils.ToByte("呵呵"))
-		return goutils.ToByte("呵呵")
+		c.Ctx.ResponseWriter.Write(goutils.ToByte("呵呵"))
+		return
 	}
 	beego.Debug(content, path_, fid)
+
+	// inser into db
+	slt := models.Solution{}
+	cur := c.SessionController.CurUser()
+	if cur != nil {
+		slt.User = &models.User{Id: cur.Id} //models.UserById(cur.Id)
+	} else {
+		slt.User = models.UserByName("error")
+	}
+	// slt.Content = content
+	slt.Content = template.HTMLEscapeString(content)
+	ffid, _ := c.GetInt("fid")
+	slt.Problem = models.ProblemById(ffid)
+	models.ORM.Insert(&slt)
+	// insert into db
+
 	submit_LOCKER.Lock()
 	defer submit_LOCKER.Unlock()
 	cmd := exc.NewCMD("go test -v").Cd(defaultpath)
@@ -106,10 +113,12 @@ func submit(rw http.ResponseWriter, req *http.Request) []byte {
 	submitID++
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
 	goutils.CheckErr(err)
-	rw.Write(ret)
 	fmt.Println(goutils.ToString(ret))
 	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(5)
-	return ret
+
+	c.Ctx.ResponseWriter.Write(ret)
+	// c.Data["result"] = goutils.ToString(res)
+	// c.TplName = "result.html"
 }
 
 // @router /login [get]
@@ -188,5 +197,26 @@ func (c *MainController) Logout() {
 
 // @router /user [get]
 func (c *MainController) User() {
+	cur := c.SessionController.CurUser()
+	if cur != nil {
+		var probs []models.Problem
+		models.ORM.QueryTable((*models.Problem)(nil)).Filter("User__Id", cur.Id).Limit(5).All(&probs)
+		problemz := make([]gooj.Model, 0, len(probs))
+		for _, it := range probs {
+			js := jsnm.BytesFmt(goutils.ToByte(it.Content))
+			md := gooj.Model{}
+			md.Id = js.Get("id").RawData().String()
+			md.Desc = js.Get("desc").RawData().String()
+			md.Title = js.Get("title").RawData().String()
+			problemz = append(problemz, md)
+		}
+		c.Data["problems"] = problemz
+
+		var solutions []models.Solution
+		models.ORM.QueryTable((*models.Solution)(nil)).Filter("User__Id", cur.Id).Limit(5).OrderBy("-Id").All(&solutions)
+		c.Data["solutions"] = solutions
+		fmt.Println(solutions)
+	}
+
 	c.TplName = "user.html"
 }
