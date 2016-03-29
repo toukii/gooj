@@ -117,15 +117,18 @@ func (c *MainController) OJ() {
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
 	goutils.CheckErr(err)
 	result := goutils.ToString(ret)
-	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(5)
-
-	c.Ctx.ResponseWriter.Write(ret)
 	fmt.Println("n =", n)
 	if n > 0 {
 		slt.Result = result
 		slt.Id = int(n)
-		models.ORM.Update(&slt)
+		go func() {
+			models.ORM.Update(&slt)
+		}()
 	}
+
+	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(1)
+
+	c.Ctx.ResponseWriter.Write(ret)
 	// c.Data["result"] = goutils.ToString(res)
 	// c.TplName = "result.html"
 }
