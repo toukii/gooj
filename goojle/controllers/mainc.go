@@ -155,11 +155,11 @@ func (c *MainController) Login() {
 		c.Redirect("/", 302)
 	}
 	c.LoginSetSession(uid)
-	c.Data["title"] = "PROBLEM"
+	/*c.Data["title"] = "PROBLEM"
 	c.Data["problems"] = problems
-	c.TplName = "list.html"
+	c.TplName = "list.html"*/
 	// c.Get()
-	// c.Redirect("/", 302)
+	c.Redirect("/user", 302)
 }
 
 func (c *MainController) Prepare() {

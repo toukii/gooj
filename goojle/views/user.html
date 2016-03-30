@@ -1,39 +1,49 @@
 {{template "header.html" .}}
 <div class="container">
 	<h3>User Center</h3>
-	<div>
 		<hr>
 		<h3>Published Solutions</h3><br>
 		{{range .solutions}}
-			<span>
-			<h4>{{.Id}} @</h4><a href="/problem/{{.Problem.Id}}"><h3>{{.Problem.Id}}</h3><br></a>
-			</span>
-			<textarea id="problem-result" style="color: #00FF00;background-color:#000;font-size:14px" cols="100" rows="8" class=".hecker" readonly="true">{{.Content}}</textarea>
-			<textarea id="problem-result" style="color: #00FF00;background-color:#000;font-size:14px" cols="100" rows="8" class=".hecker" readonly="true">{{.Result}}</textarea>
-			
-			<h5>{{.Create}}</h5>
+			<div class="row">
+				
+			<div class="col-md-1">
+				<h4>{{.Id}} @</h4><a href="/problem/{{.Problem.Id}}"><h3>{{.Problem.Id}}</h3><br></a>
+			</div>
+
+			<div class="col-md-6">
+				<textarea id="problem-result" style="color: #bcd;background-color:#233;font-size:14px" cols="100" rows="8" class="form-control" readonly="true">{{.Content}}</textarea>
+			</div>
+			<div class="col-md-5">
+				<textarea id="problem-result" style="color: #00FF00;background-color:#333233;font-size:14px" cols="100" rows="8" class="hecker form-control" readonly="true">{{.Result}}</textarea>
+			</div>
+			</div>			
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-3">
+					<h5>{{.Create}}</h5>
+				</div>
+			</div>
 			<hr>
 		{{end}}
 		<hr>
 		<h3>Published Problems</h3><br>
 		{{range .problems}}
-			<a href="/problem/{{.Id}}"><h3>#{{.Id}}#</h3><br></a>
-			<h4>{{.Title}}</h4>
-			<textarea id="problem-result" style="color: #00FF00;background-color:#000;font-size:14px" cols="100" rows="8" class=".hecker" readonly="true">{{.Desc}}</textarea>
-			<hr>
-		{{end}}
-		<hr>
-		<h3>Topic Remarks @{{.user.Name}}</h3><br>
-		{{range .remarks}}
+		<div class="row">
+			<div class="col-md-1">
+				<a href="/problem/{{.Id}}"><h3>#{{.Id}}#</h3><br></a>
+			</div>
+			<div class="col-md-2">
+				<h4>{{.Title}}</h4>
+			</div>
+			<div class="col-md-7">
+				<textarea id="problem-result" style="color: #F0bd00;background-color:#332;font-size:14px" cols="100" rows="8" class="hecker form-control" readonly="true">{{.Desc}}</textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
 			
-			<a href="/topic/{{.Topic.Id}}"><h3>#{{.Topic.Title}}#</h3></a>
-			<h3>@{{.Topic.User.Name}}</h3><br>
-			<h5>{{.Topic.Content}}</h5>
-			<h4>[{{.Content}}]</h4>
-			{{.Create}}
-			<a href="/topic/{{.Topic.Id}}/delremark/{{.Id}}">delete</a>
+		</div>
 			<hr>
 		{{end}}
-	</div>
 </div>
 {{template "footer.html" .}}
