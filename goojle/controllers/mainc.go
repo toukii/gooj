@@ -126,7 +126,8 @@ func (c *MainController) OJ() {
 		}()
 	}
 
-	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(1)
+	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).Execute()
+	// go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(1)
 
 	c.Ctx.ResponseWriter.Write(ret)
 	// c.Data["result"] = goutils.ToString(res)
