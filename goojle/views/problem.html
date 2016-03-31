@@ -14,13 +14,13 @@
 				<input type="hidden" name="fid" value="{{.problem.Id}}">
 				<input type="hidden" name="fname" value="{{.problem.FuncName}}">
 				<input type="hidden" name="rid" value="{{.rid}}">
-				<textarea id="problem-content" name="problem" cols="70" rows="15">{{.problem.Content}}</textarea>
+				<textarea id="problem-content" name="problem" style="color: #bcd;background-color:#233;font-size:14px" cols="70" rows="15">{{.problem.Content}}</textarea>
 			</form>
 		</div>
 	</div>
 	<div class="col-md-5">
 		<label id="submit-btn" style="background-color:#72AEF2;padding:10px 8px;">commit</label><br>
-		<textarea id="problem-result" style="color: #00FF00;background-color:#333233;font-size:14px" cols="100" rows="8" class="hecker form-control" readonly="true"></textarea> 
+		<textarea id="problem-result" style="color: #00FF00;background-color:#333233;font-size:14px;display: none;" cols="100" rows="8" class="hecker form-control" readonly="true"></textarea> 
 		<!-- <span id="rawContent">{{.problem.Desc}}</span> -->
 		<span id="markdownContent"></span>
 	</div>
