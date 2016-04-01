@@ -90,4 +90,18 @@ func init() {
 			[]string{"get"},
 			nil})
 
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
+		beego.ControllerComments{
+			"Puzzle",
+			`/puzzle/:id:int`,
+			[]string{"get"},
+			nil})
+
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
+		beego.ControllerComments{
+			"PuzzlePost",
+			`/puzzle/:id:int`,
+			[]string{"post"},
+			nil})
+
 }

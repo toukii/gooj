@@ -1,0 +1,143 @@
+{{template "header.html" .}}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-2">
+			<!-- <a href="HOME">HOME</a> -->
+		</div>
+		<div class="col-md-2">
+			<button id="auto-input" class="btn btn-info">auto-input</button>
+		</div>
+	</div><br>
+<form method="POST" action="/insert">
+	<div class="row">
+		<!-- <div class="col-md-4">
+			<div class="input-group" hidden="true">
+			    <div class="input-group-addon">Id</div>
+			    <input type="text" class="form-control" name="id" id="id" value="{{.puzzle.Id}}" placeholder="ID">
+  			</div>
+		</div> -->
+		<div class="col-md-4">
+			<div class="input-group">
+		      <div class="input-group-addon">Title</div>
+		      <input type="text" class="form-control" id="title" name="title" value="{{.puzzle.Title}}" placeholder="Title">
+		    </div>
+		</div>
+		<div class="col-md-4">
+			<div class="input-group">
+				<div class="input-group-addon">FuncName</div>
+				<input type="text" class="form-control" name="func_name" id="func_name" value="{{.puzzle.FuncName}}" placeholder="FuncName">
+			</div>
+		</div>
+	</div><br>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="input-group">
+				<div class="input-group-addon">ArgesType</div>
+				<input type="text" id="args_type" name="args_type" class="form-control" value="{{.puzzle.ArgsType}}" placeholder="ArgesType">
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="input-group">
+				<div class="input-group-addon">RetsType</div>
+				<input id="rets_type" name="rets_type" type="text" class="form-control" value="{{.puzzle.RetsType}}" placeholder="RetsType">
+			</div>
+		</div>
+	</div><br>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="input-group">
+				<div class="input-group-addon">TestCases</div>
+				<textarea rows="6" id="test_cases" name="test_cases" class="form-control" placeholder="TestCases">{{.puzzle.TestCases}}</textarea>
+			</div>
+		</div>
+	</div><br>
+	<div class="row">
+		<div class="col-md-6">
+			<textarea rows="16" class="form-control" placeholder="Description" id="descr" name="descr">{{.puzzle.Descr}}</textarea>
+		</div>
+		<div class="col-md-6">
+			<span id="markdownContent"></span>
+		</div>
+	</div><br>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="input-group">
+				<div class="input-group-addon">Content</div>
+				<textarea rows="16" class="form-control" placeholder="Content" id="content" name="content">{{.puzzle.Content}}</textarea>
+				<div id="test" class="input-group-addon btn btn-info">Test</div>
+			</div>
+		</div>
+	</div><br>
+
+	<div id="result-div" class="row" style="display:none">
+		<div class="col-md-12">
+			<div class="input-group">
+				<div class="input-group-addon">Result</div>
+				<textarea id="result" rows="8" class="form-control" placeholder="Result"></textarea>
+			</div>
+		</div>
+	</div><br>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="checkbox">
+				<label>
+					<input id="online" value="online" name="online" type="checkbox"> 发布
+					<!-- <input id="online" value="offline" checked="checked" name="online" type="checkbox"> Off -->
+				</label>
+			</div>
+		</div>
+		<div class="col-md-offset-4 col-md-4">
+			 <button type="submit" class="btn btn-warning">Submit</button>
+		</div>
+	</div><br>
+	</form>
+</div>
+
+<script type="text/javascript">
+	function autoinput() {
+		$("#func_name").val("mid");
+		$("#args_type").val("[]int");
+		$("#rets_type").val("int");
+		$("#test_cases").val('{in:[]int{1,2,3},out:2},\n'+
+		'{in:[]int{1,3,4},out:3},');
+		$("#content").text('package goojt\n\n'+
+		'func mid(args []int) int{\n'+
+		'	return args[1]\n'+
+		'}');
+	};
+	$(document).ready(function(){
+		$("#auto-input").click(function (argument) {
+			autoinput();
+		});
+		$("#test").click(function (argument) {
+			$("#result-div").css("display","");
+			$("#result").text("");
+			$.ajax({
+				 url: '/test',
+				 type: 'POST',
+				 data:{"id":$("#id").val(),"title":$("#title").val(),"func_name":$("#func_name").val(),"args_type":$("#args_type").val(),"rets_type":$("#rets_type").val(),"test_cases":$("#test_cases").val(),"descr":$("#descr").val(),"content":$("#content").val()},
+				 success: function(result) {
+				  	$("#result").text(result);
+				  	console.log(result);
+				 }
+			});
+		});
+		$("#descr").keypress( function(event){
+			if ("13"==event.which) {
+				rpcmd();
+			};
+		});
+	});
+
+	function CallbackFunc (data){
+		$("#markdownContent").html(data.mddata);
+	}
+	function rpcmd () {
+		$.getJSON("http://markdown.daoapp.io/markdownCB?callback=?",{"rawContent":$("#descr").val()},function (data){
+	        console.log("callback-data:" + data.mddata);
+	    });
+	}
+</script>
+
+{{template "footer.html" .}}

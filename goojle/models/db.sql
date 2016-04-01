@@ -27,3 +27,17 @@ create table remark(
 )default charset=utf8;
 
 alter table solution add result text;
+
+
+create table puzzle(
+	id int auto_increment primary key,
+	user_id int not null,
+	title text,
+	descr text,
+	func_name text,
+	content text,
+	args_type text,
+	rets_type text,
+	test_cases text,
+	online char(1)
+)default charset=utf8;

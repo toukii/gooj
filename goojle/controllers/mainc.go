@@ -233,3 +233,23 @@ func (c *MainController) User() {
 
 	c.TplName = "user.html"
 }
+
+// @router /puzzle/:id:int [get]
+func (c *MainController) Puzzle() {
+	var id int
+	c.Ctx.Input.Bind(&id, ":id")
+	var puzzle models.Puzzle
+	err := models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Id", id).One(&puzzle)
+	goutils.CheckErr(err)
+	c.Data["puzzle"] = puzzle
+	c.TplName = "puzzle.html"
+}
+
+// @router /puzzle/:id:int [post]
+func (c *MainController) PuzzlePost() {
+	var id int
+	c.Ctx.Input.Bind(&id, ":id")
+	var puzzle models.Puzzle
+	puzzle.Id, _ = c.GetInt("id")
+	c.Redirect(fmt.Sprintf("/problem/%d", id), 302)
+}

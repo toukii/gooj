@@ -77,3 +77,16 @@ type Solution struct {
 	Result  string    `orm:"result;null" form:"result"`
 	Create  time.Time `orm:"auto_now_add;column(created);type(datetime)"`
 }
+
+type Puzzle struct {
+	Id        int    `orm:"id;pk"`
+	User      *User  `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
+	Title     string `json:"title" orm:"title"`
+	Descr     string `json:"descr" orm:"descr"`
+	FuncName  string `json:"func_name" orm:"func_name"`
+	Content   string `json:"content" orm:"content"`
+	ArgsType  string `json:"args_type" orm:"args_type"`
+	RetsType  string `json:"rets_type" orm:"rets_type"`
+	TestCases string `json:"test_cases" orm:"test_cases"`
+	Online    byte   `json:"online" orm:"online"`
+}
