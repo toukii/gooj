@@ -26,15 +26,15 @@ import (
 }*/
 
 type Model struct {
-	Id        string `json:"id"`
-	Title     string `json:"title"`
-	Desc      string `json:"desc"`
-	FuncName  string `json:"func_name"`
-	Content   string `json:"content"`
-	ArgsType  string `json:"args_type"`
-	RetsType  string `json:"rets_type"`
-	TestCases string `json:"test_cases"`
-	Online    bool   `json:"online"`
+	Id        string `from:"id" json:"id"`
+	Title     string `from:"title" json:"title"`
+	Desc      string `from:"descr" json:"desc"`
+	FuncName  string `from:"func_name" json:"func_name"`
+	Content   string `from:"content" json:"content"`
+	ArgsType  string `from:"args_type" json:"args_type"`
+	RetsType  string `from:"rets_type" json:"rets_type"`
+	TestCases string `from:"test_cases" json:"test_cases"`
+	Online    byte   `from:"online" json:"online"`
 }
 
 func NewModel() Model {
@@ -59,7 +59,7 @@ func reverse(in []int) []int {
 		{in: []int{1, 2, 4}, out: []int{4, 2, 1}},
 		{in: []int{1, 5, 3}, out: []int{3, 5, 1}},
 		{in: []int{6, 2, 3}, out: []int{3, 2, 6}},`,
-		Online: false,
+		Online: 0,
 	}
 }
 

@@ -7,24 +7,18 @@ import (
 	"github.com/shaalx/gooj"
 	"github.com/shaalx/gooj/goojle/models"
 	"github.com/shaalx/goutils"
-	"html/template"
-	// "net/http"
 	"github.com/shaalx/jsnm"
+	"html/template"
 	"os"
 	"strings"
 	"sync"
 )
 
 type MainController struct {
-	// beego.Controller
 	SessionController
 }
 
 var (
-	// problemURL    = "http://7xku3c.com1.z0.glb.clouddn.com/models.json"
-	problemURL    = "https://raw.githubusercontent.com/shaalx/GoOJProbs/master/models.json"
-	problems      []gooj.Model
-	problemMap    map[string]gooj.Model
 	defaultpath   string
 	submit_LOCKER = sync.Mutex{}
 	submitID      int64
@@ -32,28 +26,15 @@ var (
 
 func init() {
 	defaultpath, _ = os.Getwd()
-	// problems = gooj.TiniuMs(problemURL)
-	problems = gooj.ToMs()
-	problemMap = make(map[string]gooj.Model)
-	for _, it := range problems {
-		problemMap[it.Id] = it
-	}
-}
-
-// @router /update [get]
-func (c *MainController) Update() {
-	problems = gooj.TiniuMs(problemURL)
-	problemMap = make(map[string]gooj.Model)
-	for _, it := range problems {
-		problemMap[it.Id] = it
-	}
-	c.Redirect("/", 302)
 }
 
 // @router / [get]
 func (c *MainController) Get() {
+	var puzzles []models.Puzzle
+	n, err := models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Online", 1).All(&puzzles)
+	beego.Debug(n, err)
 	c.Data["title"] = "PROBLEM"
-	c.Data["problems"] = problems
+	c.Data["problems"] = puzzles
 	c.TplName = "list.html"
 }
 
@@ -61,7 +42,10 @@ func (c *MainController) Get() {
 func (c *MainController) GetPro() {
 	var id int
 	c.Ctx.Input.Bind(&id, ":id")
-	c.Data["problem"] = problemMap[fmt.Sprintf("%d", id)]
+	var problem models.Puzzle
+	errq := models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Id", id).RelatedSel().One(&problem)
+	goutils.CheckErr(errq)
+	c.Data["problem"] = problem
 	addrsplit := strings.Split(c.Ctx.Request.RemoteAddr, ":")
 	rid := addrsplit[len(addrsplit)-1]
 	c.Data["rid"] = rid
@@ -69,15 +53,10 @@ func (c *MainController) GetPro() {
 	c.TplName = "problem.html"
 }
 
-type Input struct {
-	fname   string `form:"fname"`
-	problem string `form:"problem"`
-	rid     string `form:"rid"`
-}
-
 // @router /oj/:id:int [post]
 func (c *MainController) OJ() {
-	// res := submit(c.Ctx.ResponseWriter, c.Ctx.Request)
+	var id int
+	c.Ctx.Input.Bind(&id, ":id")
 	fid := c.GetString("fid")
 	path_ := c.GetString("rid")
 	content := c.GetString("problem")
@@ -96,7 +75,6 @@ func (c *MainController) OJ() {
 		slt.User = models.UserByName("error")
 	}
 	slt.Content = content
-	// slt.Content = template.HTMLEscapeString(content)
 	ffid, _ := c.GetInt("fid")
 	slt.Problem = models.ProblemById(ffid)
 	n, dberr := models.ORM.Insert(&slt)
@@ -108,10 +86,14 @@ func (c *MainController) OJ() {
 	submit_LOCKER.Lock()
 	defer submit_LOCKER.Unlock()
 	cmd := exc.NewCMD("go test -v").Cd(defaultpath)
-	m := problemMap[fid]
+
+	var puzzle models.Puzzle
+	models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Id", id).One(&puzzle)
+	m := Puzzle2Model(&puzzle)
+
 	m.Content = content
 	beego.Info(m)
-	err := gooj.GenerateOjModle(path_, &m)
+	err := gooj.GenerateOjModle(path_, m)
 	goutils.CheckErr(err)
 	submitID++
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
@@ -127,11 +109,25 @@ func (c *MainController) OJ() {
 	}
 
 	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).Execute()
-	// go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).ExecuteAfter(1)
 
 	c.Ctx.ResponseWriter.Write(ret)
-	// c.Data["result"] = goutils.ToString(res)
-	// c.TplName = "result.html"
+}
+
+func Puzzle2Model(puzzle *models.Puzzle) *gooj.Model {
+	if nil == puzzle {
+		return nil
+	}
+	m := gooj.Model{}
+	m.Id = fmt.Sprintf("%s", puzzle.Id)
+	m.ArgsType = puzzle.ArgsType
+	m.Content = puzzle.Content
+	m.Desc = puzzle.Descr
+	m.FuncName = puzzle.FuncName
+	m.Online = puzzle.Online
+	m.RetsType = puzzle.RetsType
+	m.TestCases = puzzle.TestCases
+	m.Title = puzzle.Title
+	return &m
 }
 
 // @router /login [get]
@@ -152,35 +148,19 @@ func (c *MainController) Login() {
 	}
 	uid := usr.Check()
 	if uid <= 0 {
-		// c.Abort("401")
 		c.Redirect("/", 302)
 	}
 	c.LoginSetSession(uid)
-	/*c.Data["title"] = "PROBLEM"
-	c.Data["problems"] = problems
-	c.TplName = "list.html"*/
-	// c.Get()
 	c.Redirect("/user", 302)
 }
 
 func (c *MainController) Prepare() {
 	c.SessionController.Prepare()
-	c.CheckLogin()
-}
-
-func (c *MainController) CheckLogin() {
-	sess, err := models.GlobalSessions.SessionStart(c.Ctx.ResponseWriter, c.Ctx.Request)
-	if err != nil || sess == nil {
-		beego.Debug(err)
-	}
-	sessid := sess.Get("gosessionid")
-	beego.Debug(sessid)
 }
 
 func (c *MainController) LoginSetSession(usrid int) {
 	sess, err := models.GlobalSessions.SessionStart(c.Ctx.ResponseWriter, c.Ctx.Request)
 	if err != nil || sess == nil {
-		// c.Abort("401")
 		c.Redirect("/", 302)
 	}
 
@@ -192,7 +172,6 @@ func (c *MainController) LoginSetSession(usrid int) {
 func (c *MainController) LogoutSetSession() {
 	sess, err := models.GlobalSessions.SessionStart(c.Ctx.ResponseWriter, c.Ctx.Request)
 	if err != nil || sess == nil {
-		// c.Abort("401")
 		c.Redirect("/", 302)
 	}
 	sess.Set("gosessionid", "_")
@@ -204,7 +183,6 @@ func (c *MainController) LogoutSetSession() {
 func (c *MainController) Logout() {
 	c.Data["curUser"] = nil
 	c.LogoutSetSession()
-	// c.Get()
 	c.Redirect("/", 302)
 }
 
@@ -232,24 +210,4 @@ func (c *MainController) User() {
 	}
 
 	c.TplName = "user.html"
-}
-
-// @router /puzzle/:id:int [get]
-func (c *MainController) Puzzle() {
-	var id int
-	c.Ctx.Input.Bind(&id, ":id")
-	var puzzle models.Puzzle
-	err := models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Id", id).One(&puzzle)
-	goutils.CheckErr(err)
-	c.Data["puzzle"] = puzzle
-	c.TplName = "puzzle.html"
-}
-
-// @router /puzzle/:id:int [post]
-func (c *MainController) PuzzlePost() {
-	var id int
-	c.Ctx.Input.Bind(&id, ":id")
-	var puzzle models.Puzzle
-	puzzle.Id, _ = c.GetInt("id")
-	c.Redirect(fmt.Sprintf("/problem/%d", id), 302)
 }

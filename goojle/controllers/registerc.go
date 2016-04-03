@@ -19,7 +19,6 @@ func init() {
 }
 
 type LogController struct {
-	// beego.Controller
 	SessionController
 }
 
@@ -36,7 +35,6 @@ func (c *LogController) Signin() {
 // @router /callback [get]
 func (c *LogController) Callback() {
 	req := c.Ctx.Request
-	// rw := c.Ctx.ResponseWriter
 	fmt.Printf("%s\n", req.RemoteAddr)
 	b, err := OA.NextStep(req)
 	if nil != err {
@@ -48,7 +46,6 @@ func (c *LogController) Callback() {
 		}
 		c.LoginSetSession(n)
 		c.Redirect("/", 302)
-		// rw.Write([]byte(err.Error()))
 		return
 	}
 	jv := jsnm.BytesFmt(b)
@@ -81,12 +78,10 @@ func (c *LogController) Register() {
 	valid := validation.Validation{}
 	usr.Valid(&valid)
 	if valid.HasErrors() {
-		// c.Abort("401")
 		c.Redirect("/", 302)
 	}
 	n := models.RegisterUser(&usr)
 	if n <= 0 {
-		// c.Abort("401")
 		c.Redirect("/", 302)
 	}
 	c.LoginSetSession(n)

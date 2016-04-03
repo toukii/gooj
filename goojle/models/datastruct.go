@@ -79,14 +79,14 @@ type Solution struct {
 }
 
 type Puzzle struct {
-	Id        int    `orm:"id;pk"`
+	Id        int    `orm:"id;pk" form:"id"`
 	User      *User  `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
-	Title     string `json:"title" orm:"title"`
-	Descr     string `json:"descr" orm:"descr"`
-	FuncName  string `json:"func_name" orm:"func_name"`
-	Content   string `json:"content" orm:"content"`
-	ArgsType  string `json:"args_type" orm:"args_type"`
-	RetsType  string `json:"rets_type" orm:"rets_type"`
-	TestCases string `json:"test_cases" orm:"test_cases"`
-	Online    byte   `json:"online" orm:"online"`
+	Title     string `json:"title" orm:"title" form:"title"`
+	Descr     string `json:"descr" orm:"descr" form:"descr"`
+	FuncName  string `json:"func_name" orm:"func_name" form:"func_name"`
+	Content   string `json:"content" orm:"content" form:"content"`
+	ArgsType  string `json:"args_type" orm:"args_type" form:"args_type"`
+	RetsType  string `json:"rets_type" orm:"rets_type" form:"rets_type"`
+	TestCases string `json:"test_cases" orm:"test_cases" form:"test_cases"`
+	Online    byte   `json:"online" orm:"online" form:"online"`
 }

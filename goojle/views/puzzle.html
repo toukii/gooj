@@ -9,7 +9,7 @@
 			<button id="auto-input" class="btn btn-info">auto-input</button>
 		</div>
 	</div><br>
-<form method="POST" action="/insert">
+<form method="POST" action="/puzzle/{{.puzzle.Id}}">
 	<div class="row">
 		<!-- <div class="col-md-4">
 			<div class="input-group" hidden="true">
@@ -82,7 +82,7 @@
 		<div class="col-md-4">
 			<div class="checkbox">
 				<label>
-					<input id="online" value="online" name="online" type="checkbox"> 发布
+					<input id="online" value="1" name="online" type="checkbox"> 发布
 					<!-- <input id="online" value="offline" checked="checked" name="online" type="checkbox"> Off -->
 				</label>
 			</div>

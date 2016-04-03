@@ -31,13 +31,13 @@ alter table solution add result text;
 
 create table puzzle(
 	id int auto_increment primary key,
-	user_id int not null,
-	title text,
+	user_id int,
+	title text not null,
 	descr text,
-	func_name text,
+	func_name text not null,
 	content text,
-	args_type text,
-	rets_type text,
-	test_cases text,
+	args_type text not null,
+	rets_type text not null,
+	test_cases text not null,
 	online char(1)
 )default charset=utf8;

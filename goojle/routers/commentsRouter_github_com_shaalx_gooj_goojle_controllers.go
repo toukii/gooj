@@ -36,13 +36,6 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
 		beego.ControllerComments{
-			"Update",
-			`/update`,
-			[]string{"get"},
-			nil})
-
-	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
-		beego.ControllerComments{
 			"Get",
 			`/`,
 			[]string{"get"},
@@ -90,17 +83,38 @@ func init() {
 			[]string{"get"},
 			nil})
 
-	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"],
+		beego.ControllerComments{
+			"Puzzle_New",
+			`/puzzle`,
+			[]string{"get"},
+			nil})
+
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"],
+		beego.ControllerComments{
+			"PuzzlePost_New",
+			`/puzzle`,
+			[]string{"post"},
+			nil})
+
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"],
 		beego.ControllerComments{
 			"Puzzle",
 			`/puzzle/:id:int`,
 			[]string{"get"},
 			nil})
 
-	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:MainController"],
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"],
 		beego.ControllerComments{
-			"PuzzlePost",
+			"PuzzlePostId",
 			`/puzzle/:id:int`,
+			[]string{"post"},
+			nil})
+
+	beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"] = append(beego.GlobalControllerRouter["github.com/shaalx/gooj/goojle/controllers:PuzzleController"],
+		beego.ControllerComments{
+			"Test",
+			`/test`,
 			[]string{"post"},
 			nil})
 

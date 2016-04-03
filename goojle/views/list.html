@@ -4,7 +4,7 @@
       {{ range $k,$v := .problems}}
             <div class="col-sm-8 col-md-4 col-lg-2">
             <div class="thumbnail">
-              <a href="/problem/{{$k}}">{{.Title}}
+              <a href="/problem/{{.Id}}">{{.Title}}{{.Id}}
               <img class="img-rounded lazy" src="http://7xku3c.com1.z0.glb.clouddn.com/bgi.jpg" width="250px" height="5px" alt="Headroom.js">
               </a>
               	<hr>
