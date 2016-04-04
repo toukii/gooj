@@ -18,6 +18,10 @@ func (c *JudgeController) Get() {
 	n, err := models.ORM.QueryTable((*models.Puzzle)(nil)).RelatedSel().Filter("Online", 1).Limit(20).All(&puzzles)
 	beego.Debug(n, err)
 	c.Data["title"] = "Puzzle"
+	for _, it := range puzzles {
+		it.SubString(10)
+	}
+	fmt.Println(puzzles)
 	c.Data["puzzles"] = puzzles
 	c.TplName = "list.html"
 }

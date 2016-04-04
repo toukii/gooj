@@ -50,7 +50,7 @@ func UserByName(name string) *User {
 		fmt.Println(err, name)
 		return nil
 	}
-	if usr.Id <= 0 {
+	if usr.Id < 0 {
 		return nil
 	}
 	fmt.Println(usr)
@@ -63,7 +63,7 @@ func UserById(id int) *User {
 		fmt.Println(err, id)
 		return nil
 	}
-	if usr.Id <= 0 {
+	if usr.Id < 0 {
 		return nil
 	}
 	fmt.Println(usr)

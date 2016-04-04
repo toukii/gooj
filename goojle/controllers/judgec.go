@@ -81,7 +81,7 @@ func (c *ListController) OJ() {
 	if cur != nil {
 		slt.User = &models.User{Id: cur.Id} //models.UserById(cur.Id)
 	} else {
-		slt.User = models.UserByName("error")
+		slt.User = models.UserByName("Anonymous")
 	}
 	slt.Content = content
 	ffid, _ := c.GetInt("fid")

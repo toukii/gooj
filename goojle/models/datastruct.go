@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/astaxie/beego/validation"
+	"github.com/shaalx/gooj/goojle/utils"
 	"time"
 )
 
@@ -53,4 +54,8 @@ type Puzzle struct {
 	RetsType  string `json:"rets_type" orm:"rets_type" form:"rets_type"`
 	TestCases string `json:"test_cases" orm:"test_cases" form:"test_cases"`
 	Online    byte   `json:"online" orm:"online" form:"online"`
+}
+
+func (p *Puzzle) SubString(length int) {
+	p.Descr = utils.SubString(p.Descr, length)
 }

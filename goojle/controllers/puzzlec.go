@@ -33,6 +33,10 @@ func (c *PuzzleController) PuzzlePost_New() {
 		if puzzle.User == nil || puzzle.User.Id != 1 { // 管理员
 			puzzle.Online = 0
 		}
+		if puzzle.User == nil {
+			puzzle.User = models.UserByName("Anonymous")
+		}
+		fmt.Printf("%#v\n", puzzle.User)
 		n, err := models.ORM.Insert(&puzzle)
 		if !goutils.CheckErr(err) {
 			c.Redirect(fmt.Sprintf("/oj/%d", n), 302)
@@ -40,6 +44,7 @@ func (c *PuzzleController) PuzzlePost_New() {
 		beego.Debug(n, err)
 	}
 	fmt.Println(puzzle)
+	c.Redirect("/", 302)
 }
 
 func (c *PuzzleController) checkPuzzleUser(id int) int {
@@ -95,6 +100,9 @@ func (c *PuzzleController) PuzzlePostId() {
 	var puzzle models.Puzzle
 	err := c.ParseForm(&puzzle)
 	puzzle.Id = id
+	var puzzle_old models.Puzzle
+	models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Id", id).One(&puzzle_old)
+	puzzle.User = puzzle_old.User
 	if check_res != 3 { // 管理员
 		puzzle.Online = 0
 	}
@@ -119,10 +127,10 @@ func (c *PuzzleController) Test() {
 	model.Content = c.GetString("content")
 	model.RetsType = c.GetString("rets_type")
 	model.TestCases = c.GetString("test_cases")
-	if len(model.FuncName) <= 0 {
+	/*if len(model.FuncName) <= 0 {
 		c.Abort("403")
 		return
-	}
+	}*/
 	fmt.Printf("%#v\n", model)
 	path_ := strings.Split(c.Ctx.Request.RemoteAddr, ":")[1]
 	if len(path_) < 1 {
@@ -131,14 +139,14 @@ func (c *PuzzleController) Test() {
 	beego.Debug("path_:", path_)
 	err := gooj.GenerateOjModle(path_, &model)
 	if goutils.CheckErr(err) {
-		c.Ctx.ResponseWriter.Write(goutils.ToByte(err.Error()))
-		return
+		/*c.Ctx.ResponseWriter.Write(goutils.ToByte(err.Error()))
+		return*/
 	}
 	cmd := exc.NewCMD("go test -v")
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
 	if goutils.CheckErr(err) {
-		c.Ctx.ResponseWriter.Write(goutils.ToByte(err.Error()))
-		return
+		/*c.Ctx.ResponseWriter.Write(goutils.ToByte(err.Error()))
+		return*/
 	}
 	c.Ctx.ResponseWriter.Write(ret)
 	fmt.Println(goutils.ToString(ret))

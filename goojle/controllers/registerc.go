@@ -36,9 +36,9 @@ func (c *RegistController) Signin() {
 func (c *RegistController) Callback() {
 	req := c.Ctx.Request
 	fmt.Printf("%s\n", req.RemoteAddr)
-	b, err := OA.NextStep(req)
+	b, token, err := OA.NextStepWithToken(req)
 	if nil != err {
-		usr := models.User{Name: "error", Passwd: "error"}
+		usr := models.User{Name: "Anonymous", Passwd: "Anonymous"}
 		n := models.RegisterUser(&usr)
 		if n <= 0 {
 			usr := models.UserByName(usr.Name)
@@ -52,7 +52,7 @@ func (c *RegistController) Callback() {
 	name := jv.Get("login").RawData().String()
 	usr := models.User{}
 	usr.Name = name
-	usr.Passwd = name
+	usr.Passwd = token
 	n := models.RegisterUser(&usr)
 	if n <= 0 {
 		usr := models.UserByName(usr.Name)

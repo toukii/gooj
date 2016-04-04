@@ -4,9 +4,11 @@ create table user(
 	passwd char(64) not null
 )default charset=utf8;
 
+insert into user values(0,"Anonymous","Anonymous");
+
 create table solution(
 	id int auto_increment primary key,
-	user_id int default 1 not null,
+	user_id int not null,
 	puzzle_id char(100) not null,
 	content text,
 	result text,
@@ -15,7 +17,7 @@ create table solution(
 
 create table remark(
 	id int auto_increment primary key,
-	user_id int default 1 not null,
+	user_id int not null,
 	puzzle_id int not null,
 	solution_id int not null,
 	content text,
@@ -25,7 +27,7 @@ create table remark(
 
 create table puzzle(
 	id int auto_increment primary key,
-	user_id int default 1 not null,
+	user_id int not null,
 	title text not null,
 	descr text,
 	func_name text not null,
@@ -34,4 +36,9 @@ create table puzzle(
 	rets_type text not null,
 	test_cases text not null,
 	online char(1)
+)default charset=utf8;
+
+create table role(
+	id int auto_increment primary key,
+	title text not null
 )default charset=utf8;
