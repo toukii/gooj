@@ -7,14 +7,14 @@
 			<div class="row">
 				
 			<div class="col-md-1">
-				<h4>{{.Id}} @</h4><a href="/problem/{{.Problem.Id}}"><h3>{{.Problem.Id}}</h3><br></a>
+				<h4>{{.Id}} @</h4><a href="/oj/{{.Puzzle.Id}}"><h3>{{.Puzzle.Id}}</h3><br></a>
 			</div>
 
 			<div class="col-md-6">
-				<textarea id="problem-result" style="color: #bcd;background-color:#233;font-size:14px" cols="100" rows="8" class="form-control" readonly="true">{{.Content}}</textarea>
+				<textarea id="Puzzle-result" style="color: #bcd;background-color:#233;font-size:14px" cols="100" rows="8" class="form-control" readonly="true">{{.Content}}</textarea>
 			</div>
 			<div class="col-md-5">
-				<textarea id="problem-result" style="color: #00FF00;background-color:#333233;font-size:14px" cols="100" rows="8" class="hecker form-control" readonly="true">{{.Result}}</textarea>
+				<textarea id="Puzzle-result" style="color: #00FF00;background-color:#333233;font-size:14px" cols="100" rows="8" class="hecker form-control" readonly="true">{{.Result}}</textarea>
 			</div>
 			</div>			
 			<div class="row">
@@ -26,17 +26,17 @@
 			<hr>
 		{{end}}
 		<hr>
-		<h3>Published Problems</h3><br>
-		{{range .problems}}
+		<h3>Published Puzzles</h3><br>
+		{{range .puzzles}}
 		<div class="row">
 			<div class="col-md-1">
-				<a href="/problem/{{.Id}}"><h3>#{{.Id}}#</h3><br></a>
+				<a href="/puzzle/{{.Id}}"><h3>#{{.Id}}#</h3><br></a>
 			</div>
 			<div class="col-md-2">
 				<h4>{{.Title}}</h4>
 			</div>
 			<div class="col-md-7">
-				<textarea id="problem-result" style="color: #F0bd00;background-color:#332;font-size:14px" cols="100" rows="8" class="hecker form-control" readonly="true">{{.Desc}}</textarea>
+				<textarea id="puzzle-descr" style="color: #F0bd00;background-color:#332;font-size:14px" cols="100" rows="8" class="hecker form-control" readonly="true">{{.Descr}}</textarea>
 			</div>
 		</div>
 		<div class="row">

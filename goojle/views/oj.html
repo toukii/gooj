@@ -6,22 +6,22 @@
     font-size:14px;
   }
 </style>
-<title>{{.problem.Title}}</title>
+<title>{{.puzzle.Title}}</title>
 <div class="container" style="background-color:#eee;padding:10px 5px 5px 5px">
 	<div class="col-md-7">			
 		<div class="content">
-			<form id="problem-form" action="/oj/{{.problem.Id}}" method="post">
-				<input type="hidden" name="fid" value="{{.problem.Id}}">
-				<input type="hidden" name="fname" value="{{.problem.FuncName}}">
+			<form id="puzzle-form" action="/oj/{{.puzzle.Id}}" method="post">
+				<input type="hidden" name="fid" value="{{.puzzle.Id}}">
+				<input type="hidden" name="fname" value="{{.puzzle.FuncName}}">
 				<input type="hidden" name="rid" value="{{.rid}}">
-				<textarea id="problem-content" name="problem" style="color: #bcd;background-color:#233;font-size:14px" cols="70" rows="15">{{.problem.Content}}</textarea>
+				<textarea id="puzzle-content" name="puzzle" style="color: #bcd;background-color:#233;font-size:14px" cols="70" rows="15">{{.puzzle.Content}}</textarea>
 			</form>
 		</div>
 	</div>
 	<div class="col-md-5">
 		<label id="submit-btn" style="background-color:#72AEF2;padding:10px 8px;">commit</label><br>
-		<textarea id="problem-result" style="color: #00FF00;background-color:#333233;font-size:14px;display: none;" cols="100" rows="8" class="hecker form-control" readonly="true"></textarea> 
-		<!-- <span id="rawContent">{{.problem.Descr}}</span> -->
+		<textarea id="puzzle-result" style="color: #00FF00;background-color:#333233;font-size:14px;display: none;" cols="100" rows="8" class="hecker form-control" readonly="true"></textarea> 
+		<!-- <span id="rawContent">{{.puzzle.Descr}}</span> -->
 		<span id="markdownContent"></span>
 	</div>
 </div>
@@ -34,7 +34,7 @@
 	        url : "http://markdown.daoapp.io/markdownCB?callback=?",
 	        dataType:"jsonp",
         	jsonpCallback:"CallbackFunc",
-        	data:{"rawContent":{{.problem.Descr}}},
+        	data:{"rawContent":{{.puzzle.Descr}}},
 	        success : function(data){
 	            $("#markdownContent").html(data.mddata);
 	        	console.log(data.mddata);
@@ -44,19 +44,19 @@
 	        }
 	    });
 		$("#submit-btn").click(function (argument) {
-			$("#problem-result").text("");
+			$("#puzzle-result").text("");
 			// body...
 			$.ajax({
-				 url: '/oj/{{.problem.Id}}',
+				 url: '/oj/{{.puzzle.Id}}',
 				 type: 'POST',
-				 data:{"fid":"{{.problem.Id}}","fname":"{{.problem.FuncName}}","rid":"{{.rid}}","problem":$("#problem-content").val()},
+				 data:{"fid":"{{.puzzle.Id}}","fname":"{{.puzzle.FuncName}}","rid":"{{.rid}}","puzzle":$("#puzzle-content").val()},
 				 success: function(result) {
-				  	$("#problem-result").text(result);
+				  	$("#puzzle-result").text(result);
 				  	// $("#submit-btn").css("display","none");
 				  	console.log(result);
 				 }
 			});
-			$("#problem-result").css("display","inline");
+			$("#puzzle-result").css("display","inline");
 		});
 	});
 </script>

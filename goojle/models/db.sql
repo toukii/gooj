@@ -13,20 +13,20 @@ create table problem(
 create table solution(
 	id int auto_increment primary key,
 	user_id int not null,
-	problem_id char(100) not null,
+	puzzle_id char(100) not null,
 	content text,
+	result text,
 	created datetime
 )default charset=utf8;
 
 create table remark(
 	id int auto_increment primary key,
 	user_id int not null,
+	puzzle_id int not null,
 	solution_id int not null,
 	content text,
 	created datetime
 )default charset=utf8;
-
-alter table solution add result text;
 
 
 create table puzzle(

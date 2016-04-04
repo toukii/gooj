@@ -18,22 +18,22 @@ func init() {
 	OA = oauth2.NewOAGithub("8dbf243923c1384ebb63", "f7129496415cefed1770e0d2470d14cd82015f25", "user", "http://goojle.daoapp.io/callback")
 }
 
-type LogController struct {
+type RegistController struct {
 	SessionController
 }
 
-func (c *LogController) Prepare() {
+func (c *RegistController) Prepare() {
 	c.SessionController.Prepare()
 }
 
 // @router /githubsignin [get]
-func (c *LogController) Signin() {
+func (c *RegistController) Signin() {
 	fmt.Println(OA.AuthURL())
 	c.Redirect(OA.AuthURL(), 302)
 }
 
 // @router /callback [get]
-func (c *LogController) Callback() {
+func (c *RegistController) Callback() {
 	req := c.Ctx.Request
 	fmt.Printf("%s\n", req.RemoteAddr)
 	b, err := OA.NextStep(req)
@@ -64,14 +64,14 @@ func (c *LogController) Callback() {
 }
 
 // @router /register [get]
-func (c *LogController) LoadRegister() {
+func (c *RegistController) LoadRegister() {
 	c.EnableXSRF = true
 	c.Data["xsrfdata"] = template.HTML(c.XSRFFormHTML())
 	c.TplName = "register.html"
 }
 
 // @router /register [post]
-func (c *LogController) Register() {
+func (c *RegistController) Register() {
 	var usr models.User
 	c.ParseForm(&usr)
 	beego.Notice(usr)

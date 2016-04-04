@@ -32,17 +32,40 @@ func (c *PuzzleController) PuzzlePost_New() {
 		puzzle.User = c.CurUser()
 		n, err := models.ORM.Insert(&puzzle)
 		if !goutils.CheckErr(err) {
-			c.Redirect(fmt.Sprintf("/problem/%d", n), 302)
+			c.Redirect(fmt.Sprintf("/oj/%d", n), 302)
 		}
 		beego.Debug(n, err)
 	}
 	fmt.Println(puzzle)
 }
 
+func (c *PuzzleController) checkPuzzleUser(id int) int {
+	var puzzle models.Puzzle
+	if err := models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Id", id).One(&puzzle); goutils.CheckErr(err) {
+		return 0
+	}
+	usr := c.CurUser()
+	if puzzle.User == nil || usr == nil { // 其他作者
+		return 1
+	}
+	if puzzle.User.Id == usr.Id { // 作者本人
+		return 2
+	}
+	if usr.Id == 1 { // 管理员
+		return 3
+	}
+	return -1
+}
+
 // @router /puzzle/:id:int [get]
 func (c *PuzzleController) Puzzle() {
 	var id int
 	c.Ctx.Input.Bind(&id, ":id")
+	if c.checkPuzzleUser(id) < 2 {
+		c.Redirect(fmt.Sprintf("/oj/%d", id), 302)
+		return
+	}
+
 	var puzzle models.Puzzle
 	err := models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Id", id).One(&puzzle)
 	goutils.CheckErr(err)
@@ -54,16 +77,25 @@ func (c *PuzzleController) Puzzle() {
 func (c *PuzzleController) PuzzlePostId() {
 	var id int
 	c.Ctx.Input.Bind(&id, ":id")
+	check_res := c.checkPuzzleUser(id)
+	if check_res < 2 {
+		c.Redirect(fmt.Sprintf("/oj/%d", id), 302)
+		return
+	}
+
 	var puzzle models.Puzzle
 	err := c.ParseForm(&puzzle)
 	puzzle.Id = id
+	if check_res == 2 {
+		puzzle.Online = 0
+	}
 	if !goutils.CheckErr(err) {
 		puzzle.User = c.CurUser()
 		n, err := models.ORM.Update(&puzzle)
 		beego.Debug(n, err)
 	}
 	fmt.Println(puzzle)
-	c.Redirect(fmt.Sprintf("/problem/%d", id), 302)
+	c.Redirect(fmt.Sprintf("/oj/%d", id), 302)
 }
 
 // @router /test [post]
@@ -79,20 +111,26 @@ func (c *PuzzleController) Test() {
 	model.Content = c.GetString("content")
 	model.RetsType = c.GetString("rets_type")
 	model.TestCases = c.GetString("test_cases")
-
+	if len(model.FuncName) <= 0 {
+		c.Abort("403")
+		return
+	}
 	fmt.Printf("%#v\n", model)
 	path_ := strings.Split(c.Ctx.Request.RemoteAddr, ":")[1]
 	if len(path_) <= 1 {
-		path_ = "goojt"
+		c.Abort("403")
+		return
 	}
 	beego.Debug("path_:", path_)
 	err := gooj.GenerateOjModle(path_, &model)
 	if goutils.CheckErr(err) {
+		c.Abort("403")
 		return
 	}
 	cmd := exc.NewCMD("go test -v")
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
 	if goutils.CheckErr(err) {
+		c.Abort("403")
 		return
 	}
 	c.Ctx.ResponseWriter.Write(ret)
