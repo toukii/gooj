@@ -48,10 +48,13 @@ func (c *PuzzleController) checkPuzzleUser(id int) int {
 		return 0
 	}
 	usr := c.CurUser()
+	if usr == nil { // 其他作者
+		return 1
+	}
 	if usr.Id == 1 { // 管理员
 		return 3
 	}
-	if puzzle.User == nil || usr == nil { // 其他作者
+	if puzzle.User == nil { // 其他作者
 		return 1
 	}
 	if puzzle.User.Id == usr.Id { // 作者本人
@@ -71,7 +74,10 @@ func (c *PuzzleController) Puzzle() {
 
 	var puzzle models.Puzzle
 	err := models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Id", id).One(&puzzle)
-	goutils.CheckErr(err)
+	if goutils.CheckErr(err) {
+		c.Redirect("/", 302)
+		return
+	}
 	c.Data["puzzle"] = puzzle
 	c.TplName = "puzzle.html"
 }
@@ -125,13 +131,13 @@ func (c *PuzzleController) Test() {
 	beego.Debug("path_:", path_)
 	err := gooj.GenerateOjModle(path_, &model)
 	if goutils.CheckErr(err) {
-		c.Abort("403")
+		c.Ctx.ResponseWriter.Write(goutils.ToByte(err.Error()))
 		return
 	}
 	cmd := exc.NewCMD("go test -v")
 	ret, err := cmd.Wd().Cd(path_).Debug().Do()
 	if goutils.CheckErr(err) {
-		c.Abort("403")
+		c.Ctx.ResponseWriter.Write(goutils.ToByte(err.Error()))
 		return
 	}
 	c.Ctx.ResponseWriter.Write(ret)
