@@ -2,11 +2,11 @@
 
 <div class="container">
 	<div class="row">
+		<!-- <div class="col-md-2">
+			<a href="HOME">HOME</a>
+		</div> -->
 		<div class="col-md-2">
-			<!-- <a href="HOME">HOME</a> -->
-		</div>
-		<div class="col-md-2">
-			<button id="auto-input" class="btn btn-info">auto-input</button>
+			<button id="auto-input" class="btn btn-info">示例</button>
 		</div>
 	</div><br>
 <form method="POST" action="/puzzle/{{.puzzle.Id}}">
@@ -19,13 +19,13 @@
 		</div> -->
 		<div class="col-md-4">
 			<div class="input-group">
-		      <div class="input-group-addon">Title</div>
+		      <div class="input-group-addon">标题</div>
 		      <input type="text" class="form-control" id="title" name="title" value="{{.puzzle.Title}}" placeholder="Title">
 		    </div>
 		</div>
 		<div class="col-md-4">
 			<div class="input-group">
-				<div class="input-group-addon">FuncName</div>
+				<div class="input-group-addon">函数名</div>
 				<input type="text" class="form-control" name="func_name" id="func_name" value="{{.puzzle.FuncName}}" placeholder="FuncName">
 			</div>
 		</div>
@@ -33,13 +33,13 @@
 	<div class="row">
 		<div class="col-md-4">
 			<div class="input-group">
-				<div class="input-group-addon">ArgesType</div>
+				<div class="input-group-addon">参数类型</div>
 				<input type="text" id="args_type" name="args_type" class="form-control" value="{{.puzzle.ArgsType}}" placeholder="ArgesType">
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="input-group">
-				<div class="input-group-addon">RetsType</div>
+				<div class="input-group-addon">返回值类型</div>
 				<input id="rets_type" name="rets_type" type="text" class="form-control" value="{{.puzzle.RetsType}}" placeholder="RetsType">
 			</div>
 		</div>
@@ -47,7 +47,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="input-group">
-				<div class="input-group-addon">TestCases</div>
+				<div class="input-group-addon">测试用例</div>
 				<textarea rows="6" id="test_cases" name="test_cases" class="form-control" placeholder="TestCases">{{.puzzle.TestCases}}</textarea>
 			</div>
 		</div>
@@ -63,9 +63,9 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="input-group">
-				<div class="input-group-addon">Content</div>
+				<div class="input-group-addon">代码模板</div>
 				<textarea rows="16" class="form-control" placeholder="Content" id="content" name="content">{{.puzzle.Content}}</textarea>
-				<div id="test" class="input-group-addon btn btn-info">Test</div>
+				<div id="test" class="input-group-addon btn btn-info">测试</div>
 			</div>
 		</div>
 	</div><br>
@@ -73,7 +73,7 @@
 	<div id="result-div" class="row" style="display:none">
 		<div class="col-md-12">
 			<div class="input-group">
-				<div class="input-group-addon">Result</div>
+				<div class="input-group-addon">测试结果</div>
 				<textarea id="result" rows="8" class="form-control" placeholder="Result"></textarea>
 			</div>
 		</div>
@@ -84,6 +84,7 @@
 				<label>
 					<input id="online" value="1" name="online" type="checkbox"> 发布
 					<!-- <input id="online" value="offline" checked="checked" name="online" type="checkbox"> Off -->
+					(管理员使用)
 				</label>
 			</div>
 		</div>
@@ -96,6 +97,7 @@
 
 <script type="text/javascript">
 	function autoinput() {
+		$("#title").val("title");
 		$("#func_name").val("mid");
 		$("#args_type").val("[]int");
 		$("#rets_type").val("int");
@@ -105,6 +107,9 @@
 		'func mid(args []int) int{\n'+
 		'	return args[1]\n'+
 		'}');
+		$("#descr").text('# 求中位数\n\n'+
+		'```\n输入：1 2 3\n```\n\n\n'+
+		'```\n输出：2\n```\n');
 	};
 	$(document).ready(function(){
 		$("#auto-input").click(function (argument) {

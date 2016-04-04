@@ -1,0 +1,37 @@
+{{template "header.html" .}}
+<div class="container projects">
+    <!-- <div class="row"> -->
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>编号</th>
+          <th>题号</th>
+          <th>标题</th>
+          <th>用户</th>
+          <th>结果</th>
+          <th>耗时</th>
+          <th>内存</th>
+          <th>语言</th>
+          <th>长度</th>
+          <th>时间</th>
+        </tr>
+        </thead>
+      <tbody>
+      {{ range .solutions}}
+        <tr>
+          <td>{{.Id}}</td>
+          <td><a href="/oj/{{.Puzzle.Id}}">{{.Puzzle.Id}}</a></td>
+          <td><a href="/oj/{{.Puzzle.Id}}">{{.Puzzle.Title}}</a></td>
+          <td>{{.User.Name}}</td>
+          <td><textarea style="color: #aa88bb;background-color:#FFF;font-size:14px" class=".hecker" rows="6" cols="50" readonly="true">{{.Result}}</textarea></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{.Create}}</td>
+        </tr>
+      {{end}}        
+      </tbody>
+	<!-- </div> -->
+<div>
+{{template "footer.html" .}}

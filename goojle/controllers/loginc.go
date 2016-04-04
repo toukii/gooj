@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/shaalx/gooj/goojle/models"
 	// "github.com/shaalx/goutils"
@@ -66,21 +65,4 @@ func (c *LoginController) Logout() {
 	c.Data["curUser"] = nil
 	c.LogoutSetSession()
 	c.Redirect("/", 302)
-}
-
-// @router /user [get]
-func (c *LoginController) User() {
-	cur := c.CurUser()
-	if cur != nil {
-		var puzzles []models.Puzzle
-		models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("User__Id", cur.Id).Limit(5).All(&puzzles)
-		c.Data["puzzles"] = puzzles
-
-		var solutions []models.Solution
-		models.ORM.QueryTable((*models.Solution)(nil)).Filter("User__Id", cur.Id).Limit(5).OrderBy("-Id").All(&solutions)
-		c.Data["solutions"] = solutions
-		fmt.Println(solutions)
-	}
-
-	c.TplName = "user.html"
 }

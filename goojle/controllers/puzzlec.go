@@ -30,6 +30,9 @@ func (c *PuzzleController) PuzzlePost_New() {
 	puzzle.Id = 0
 	if !goutils.CheckErr(err) {
 		puzzle.User = c.CurUser()
+		if puzzle.User == nil || puzzle.User.Id != 1 { // 管理员
+			puzzle.Online = 0
+		}
 		n, err := models.ORM.Insert(&puzzle)
 		if !goutils.CheckErr(err) {
 			c.Redirect(fmt.Sprintf("/oj/%d", n), 302)
@@ -45,14 +48,14 @@ func (c *PuzzleController) checkPuzzleUser(id int) int {
 		return 0
 	}
 	usr := c.CurUser()
+	if usr.Id == 1 { // 管理员
+		return 3
+	}
 	if puzzle.User == nil || usr == nil { // 其他作者
 		return 1
 	}
 	if puzzle.User.Id == usr.Id { // 作者本人
 		return 2
-	}
-	if usr.Id == 1 { // 管理员
-		return 3
 	}
 	return -1
 }
@@ -86,11 +89,10 @@ func (c *PuzzleController) PuzzlePostId() {
 	var puzzle models.Puzzle
 	err := c.ParseForm(&puzzle)
 	puzzle.Id = id
-	if check_res == 2 {
+	if check_res != 3 { // 管理员
 		puzzle.Online = 0
 	}
 	if !goutils.CheckErr(err) {
-		puzzle.User = c.CurUser()
 		n, err := models.ORM.Update(&puzzle)
 		beego.Debug(n, err)
 	}
@@ -117,9 +119,8 @@ func (c *PuzzleController) Test() {
 	}
 	fmt.Printf("%#v\n", model)
 	path_ := strings.Split(c.Ctx.Request.RemoteAddr, ":")[1]
-	if len(path_) <= 1 {
-		c.Abort("403")
-		return
+	if len(path_) < 1 {
+		path_ = "goojt"
 	}
 	beego.Debug("path_:", path_)
 	err := gooj.GenerateOjModle(path_, &model)

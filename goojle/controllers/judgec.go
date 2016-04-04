@@ -13,7 +13,7 @@ import (
 	"sync"
 )
 
-type JudgeController struct {
+type ListController struct {
 	SessionController
 }
 
@@ -27,16 +27,6 @@ func init() {
 	defaultpath, _ = os.Getwd()
 }
 
-// @router / [get]
-func (c *JudgeController) Get() {
-	var puzzles []models.Puzzle
-	n, err := models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Online", 1).Limit(20).All(&puzzles)
-	beego.Debug(n, err)
-	c.Data["title"] = "Puzzle"
-	c.Data["puzzles"] = puzzles
-	c.TplName = "list.html"
-}
-
 func ojCheck(id int) int {
 	n, err := models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("Id", id).Filter("Online", 1).Count()
 	if goutils.CheckErr(err) {
@@ -46,7 +36,7 @@ func ojCheck(id int) int {
 }
 
 // @router /oj/:id:int [get]
-func (c *JudgeController) GetPro() {
+func (c *ListController) GetPro() {
 	var id int
 	c.Ctx.Input.Bind(&id, ":id")
 	var puzzle models.Puzzle
@@ -68,7 +58,7 @@ func (c *JudgeController) GetPro() {
 }
 
 // @router /oj/:id:int [post]
-func (c *JudgeController) OJ() {
+func (c *ListController) OJ() {
 	var id int
 	c.Ctx.Input.Bind(&id, ":id")
 	if ojCheck(id) <= 0 {
@@ -130,21 +120,4 @@ func (c *JudgeController) OJ() {
 	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).Execute()
 
 	c.Ctx.ResponseWriter.Write(ret)
-}
-
-func Puzzle2Model(puzzle *models.Puzzle) *gooj.Model {
-	if nil == puzzle {
-		return nil
-	}
-	m := gooj.Model{}
-	m.Id = fmt.Sprintf("%s", puzzle.Id)
-	m.ArgsType = puzzle.ArgsType
-	m.Content = puzzle.Content
-	m.Desc = puzzle.Descr
-	m.FuncName = puzzle.FuncName
-	m.Online = puzzle.Online
-	m.RetsType = puzzle.RetsType
-	m.TestCases = puzzle.TestCases
-	m.Title = puzzle.Title
-	return &m
 }
