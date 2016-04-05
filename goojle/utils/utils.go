@@ -9,5 +9,5 @@ func SubString(input string, length int) string {
 	if leng <= length {
 		return input
 	}
-	return input[:length]
+	return input[:length] + "..."
 }
