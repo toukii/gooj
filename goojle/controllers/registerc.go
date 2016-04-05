@@ -6,6 +6,7 @@ import (
 	"github.com/astaxie/beego/validation"
 	"github.com/everfore/oauth/oauth2"
 	"github.com/shaalx/gooj/goojle/models"
+	"github.com/shaalx/goutils"
 	"github.com/shaalx/jsnm"
 	"html/template"
 )
@@ -57,9 +58,15 @@ func (c *RegistController) Callback() {
 	if n <= 0 {
 		usr := models.UserByName(usr.Name)
 		n = usr.Id
+		go func() {
+			err := models.ORM.Update(usr)
+			goutils.CheckErr(err)
+		}()
+		c.LoginSetSession(n)
+		c.Redirect("/usr", 302)
+		return
 	}
 	c.LoginSetSession(n)
-	fmt.Print(jv.MapData())
 	c.Redirect("/", 302)
 }
 
