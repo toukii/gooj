@@ -112,9 +112,9 @@ func (c *ListController) OJ() {
 	goutils.CheckErr(err)
 	if n > 0 {
 		result := models.AnalyseResultParse(analyse_result)
-		n, err := models.ORM.Insert(result)
+		m, err := models.ORM.Insert(result)
 		if !goutils.CheckErr(err) {
-			result.Id = int(n)
+			result.Id = int(m)
 		}
 		slt.Result = result
 		slt.Id = int(n)

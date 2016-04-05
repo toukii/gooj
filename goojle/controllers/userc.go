@@ -33,7 +33,7 @@ func (c *UserController) Puzzles() {
 	cur := c.CurUser()
 	if cur != nil {
 		var puzzles []models.Puzzle
-		models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("User__Id", cur.Id).Limit(15).OrderBy("-Id").All(&puzzles)
+		models.ORM.QueryTable((*models.Puzzle)(nil)).Filter("User__Id", cur.Id).RelatedSel().Limit(15).OrderBy("-Id").All(&puzzles)
 		c.Data["puzzles"] = puzzles
 	}
 
@@ -45,7 +45,7 @@ func (c *UserController) Solutions() {
 	cur := c.CurUser()
 	if cur != nil {
 		var solutions []models.Solution
-		models.ORM.QueryTable((*models.Solution)(nil)).Filter("User__Id", cur.Id).Limit(15).OrderBy("-Id").All(&solutions)
+		models.ORM.QueryTable((*models.Solution)(nil)).Filter("User__Id", cur.Id).Limit(15).RelatedSel().OrderBy("-Id").All(&solutions)
 		c.Data["solutions"] = solutions
 		fmt.Println(solutions)
 	}
