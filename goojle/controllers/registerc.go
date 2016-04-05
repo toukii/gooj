@@ -59,11 +59,11 @@ func (c *RegistController) Callback() {
 		usr := models.UserByName(usr.Name)
 		n = usr.Id
 		go func() {
-			err := models.ORM.Update(usr)
+			_, err := models.ORM.Update(usr)
 			goutils.CheckErr(err)
 		}()
 		c.LoginSetSession(n)
-		c.Redirect("/usr", 302)
+		c.Redirect("/user", 302)
 		return
 	}
 	c.LoginSetSession(n)

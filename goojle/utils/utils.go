@@ -9,5 +9,11 @@ func SubString(input string, length int) string {
 	if leng <= length {
 		return input
 	}
-	return input[:length] + "..."
+	var i int
+	for i, _ = range input {
+		if i >= length {
+			break
+		}
+	}
+	return input[:i] + " ..."
 }
