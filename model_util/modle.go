@@ -1,4 +1,4 @@
-package gooj
+package model_util
 
 import (
 	"fmt"
@@ -9,6 +9,18 @@ import (
 	"path/filepath"
 	"text/template"
 )
+
+type Model struct {
+	Id        string `from:"id" json:"id"`
+	Title     string `from:"title" json:"title"`
+	Desc      string `from:"descr" json:"desc"`
+	FuncName  string `from:"func_name" json:"func_name"`
+	Content   string `from:"content" json:"content"`
+	ArgsType  string `from:"args_type" json:"args_type"`
+	RetsType  string `from:"rets_type" json:"rets_type"`
+	TestCases string `from:"test_cases" json:"test_cases"`
+	Online    byte   `from:"online" json:"online"`
+}
 
 func renderOjModle(args map[string]interface{}, w io.Writer) error {
 	b, err := ioutil.ReadFile("oj.tpl")

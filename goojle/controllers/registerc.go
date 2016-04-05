@@ -39,7 +39,7 @@ func (c *RegistController) Callback() {
 	fmt.Printf("%s\n", req.RemoteAddr)
 	b, token, err := OA.NextStepWithToken(req)
 	if nil != err {
-		usr := models.User{Name: "Anonymous", Passwd: "Anonymous"}
+		usr := models.User{Name: "Anonymous", Passwd: "Anonymous"} //存在安全漏洞
 		n := models.RegisterUser(&usr)
 		if n <= 0 {
 			usr := models.UserByName(usr.Name)

@@ -1,23 +1,23 @@
-package gooj
+package goojt
 
 import (
-	"github.com/qiniu/log"
-	"reflect"
 	"testing"
 	"time"
+	"reflect"
+	"fmt"
 )
 
-func Oj(result chan string) {
+func Oj(result chan string, t *testing.T) {
 	retc := make(chan bool)
 	t1 := time.Now()
 	go func() {
 		for _, it := range testcases {
-			ret := FUNC(it.in)
+			ret := reverse(it.in)
 			if !reflect.DeepEqual(ret, it.out) {
+				t.Error("FAILED")
+				fmt.Printf("TestCase:%#v, RunResult:%#v\n", it.in, ret)
+				fmt.Printf("ResultWanted:%#v\n", it.out)
 				retc <- false
-				log.Println(it.in)
-				log.Println("want", it.out)
-				log.Println("get", ret)
 				return
 			}
 			retc <- true
@@ -36,7 +36,7 @@ func Oj(result chan string) {
 			}
 		}
 	}
-	log.Info(time.Now().Sub(t1))
+	println(time.Now().Sub(t1))
 	result <- "AC"
 }
 
@@ -58,26 +58,6 @@ func init() {
 
 func TestOj(t *testing.T) {
 	result := make(chan string)
-	go Oj(result)
-	log.Info(<-result)
-}
-
-func Hack() {
-	for {
-		log.Print("...")
-	}
-}
-
-func FUNC(in []int) []int {
-	// Hack()
-	leng := len(in)
-	l := leng / 2
-	for i := 0; i < l; i++ {
-		in[i], in[leng-1-i] = in[leng-1-i], in[i]
-	}
-	return in
-}
-
-func TestRender(t *testing.T) {
-	// GenerateOjModle("./tw2", ToM())
+	go Oj(result, t)
+	<-result
 }

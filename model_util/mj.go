@@ -1,4 +1,4 @@
-package gooj
+package model_util
 
 import (
 	"encoding/json"
@@ -7,35 +7,6 @@ import (
 	"net/http"
 	"os"
 )
-
-/*
-{
-"desc":"reverse the array",
-"func_model":"package goojt"+"\n"+
-"func reverse(arr []int) []int{"+"\n"+
-"return nil"+"\n"+
-"}",
-
-"func_name":"reverse",
-"args":"[]int",
-"rets":"[]int",
-"test_cases":"{in: []int{1, 2, 3}, out: []int{3, 2, 1}},"+"\n"+
-		"{in: []int{1, 2, 4}, out: []int{4, 2, 1}},"+"\n"+
-		"{in: []int{1, 5, 3}, out: []int{3, 5, 1}},"+"\n"+
-		"{in: []int{6, 2, 3}, out: []int{3, 2, 6}},",
-}*/
-
-type Model struct {
-	Id        string `from:"id" json:"id"`
-	Title     string `from:"title" json:"title"`
-	Desc      string `from:"descr" json:"desc"`
-	FuncName  string `from:"func_name" json:"func_name"`
-	Content   string `from:"content" json:"content"`
-	ArgsType  string `from:"args_type" json:"args_type"`
-	RetsType  string `from:"rets_type" json:"rets_type"`
-	TestCases string `from:"test_cases" json:"test_cases"`
-	Online    byte   `from:"online" json:"online"`
-}
 
 func NewModel() Model {
 	return Model{

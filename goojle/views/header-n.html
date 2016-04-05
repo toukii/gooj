@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+  <!-- <link rel="stylesheet" href="//static.nowcoder.com/nowcoder/1.2.456/stylesheets/styles/home/unloginHome2.css"> -->
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://static.bootcss.com/www/assets/css/site.min.css?v5" rel="stylesheet">
+    
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="http://cdn.bootcss.com/unveil/1.3.0/jquery.unveil.min.js"></script>
+    <script src="http://cdn.bootcss.com/scrollup/2.4.0/jquery.scrollUp.min.js"></script>
+    <script src="http://cdn.bootcss.com/toc/0.3.2/toc.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery.matchHeight/0.5.2/jquery.matchHeight-min.js"></script>
+    <script src="http://static.bootcss.com/www/assets/js/site.min.js"></script>
+  <title>{{.title}}</title>
+
+</head>
+<body>
+
+<div class="nowcoder-header">
+  <div class="header-main clearfix">
+    <a class="nowcoder-logo" href="/" title="牛客网"></a>
+    <ul class="nowcoder-navbar">
+      <li class="active">
+        <a href="/" class="nav-home">首页</a>
+      </li>
+
+      <li>
+        <a href="/contestRoom" class="nav-exam">题库</a>
+        <ul class="sub-nav">
+          <li><a href="/contestRoom">公司真题</a></li>
+          <li><a href="/intelligentTest">专项练习</a></li>
+          <li><a href="/activity/oj">在线编程</a></li>
+          <li><a href="/activity/topics">精华专题</a></li>
+          <li><a href="/questionCenter">试题广场</a></li>
+        </ul>
+      </li>
+
+      <li>
+      <span class="ico-nav-new"></span>
+      <a href="/courses" class="nav-exam">课程</a>
+      </li>
+
+      <li>
+      <a href="/ranking" class="nav-ranking">排行榜</a>
+      </li>
+
+      <li>
+        <a href="/recommand" class="nav-discuss">内推</a>
+      </li>
+      
+      <li>
+        <a href="/discuss" class="nav-discuss">讨论区</a>
+      </li>
+      
+      <li>
+        <a href="/app" class="nav-discuss" target="_blank">APP</a>
+      </li>
+    </ul>
+
+<div class="nav-account">
+  <a href="/login" class="nav-account-login" id="nav-login">登录</a>/
+  <a href="/register" class="nav-account-reg" data-permalink="">注册</a>
+</div>
+
+<ul class="nowcoder-navbar nowcoder-other-nav">
+  <li class="nav-search">
+  <form method="get" action="/search">
+  <label class="nav-search-ico"></label>
+  <input class="nav-search-txt" name="query" type="text" placeholder="输入关键字搜索" autocomplete="off">
+  <input type="hidden" name="type" value="paper">
+  <input type="submit" class="nk-invisible">
+  <input type="hidden" name="token" value=""></form>
+  <div class="nav-search-tips" style="display:none;"></div></li>
+</ul>
+</div>
+</div>

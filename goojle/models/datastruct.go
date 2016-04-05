@@ -39,7 +39,7 @@ type Solution struct {
 	User    *User     `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
 	Puzzle  *Puzzle   `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
 	Content string    `orm:"content;null" form:"content"`
-	Result  string    `orm:"result;null" form:"result"`
+	Result  *Result   `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
 	Create  time.Time `orm:"auto_now_add;column(created);type(datetime)"`
 }
 
@@ -58,4 +58,25 @@ type Puzzle struct {
 
 func (p *Puzzle) SubString(length int) {
 	p.Descr = utils.SubString(p.Descr, length)
+}
+
+type Result struct {
+	Id          int    `orm:"id;pk" form:"id"`
+	State       string `json:"state" orm:"state" form:"state"`
+	RunCostTime string `json:"run_cost_time" orm:"run_cost_time" form:"run_cost_time"`
+	TestCase    string `json:"test_case" orm:"test_case" form:"test_case"`
+	RunResult   string `json:"run_result" orm:"run_result" form:"run_result"`
+	ErrorInfo   string `json:"error_info" orm:"error_info" form:"error_info"`
+	Content     string `json:"content" orm:"content" form:"content"`
+}
+
+func AnalyseResultParse(res *utils.Result) *Result {
+	ret := Result{}
+	ret.State = res.State
+	ret.RunCostTime = res.RunCostTime
+	ret.TestCase = res.Fail.TestCase
+	ret.RunResult = res.Fail.RunResult
+	ret.ErrorInfo = res.Fail.ErrorInfo
+	ret.Content = res.Content
+	return &ret
 }

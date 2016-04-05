@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/everfore/exc"
-	"github.com/shaalx/gooj"
 	"github.com/shaalx/gooj/goojle/models"
+	"github.com/shaalx/gooj/goojle/utils"
+	"github.com/shaalx/gooj/model_util"
 	"github.com/shaalx/goutils"
 	"html/template"
 	"os"
@@ -102,14 +103,19 @@ func (c *ListController) OJ() {
 
 	m.Content = content
 	beego.Info(m)
-	err := gooj.GenerateOjModle(path_, m)
+	err := model_util.GenerateOjModle(path_, m)
 	goutils.CheckErr(err)
 	submitID++
-	ret, err := cmd.Wd().Cd(path_).Debug().Do()
+	test_result, err := cmd.Wd().Cd(path_).Debug().Do()
+	analyse_result := utils.Analyse(goutils.ToString(test_result))
+	fmt.Println(analyse_result)
 	goutils.CheckErr(err)
-	result := goutils.ToString(ret)
-	fmt.Println("n =", n)
 	if n > 0 {
+		result := models.AnalyseResultParse(analyse_result)
+		n, err := models.ORM.Insert(result)
+		if !goutils.CheckErr(err) {
+			result.Id = int(n)
+		}
 		slt.Result = result
 		slt.Id = int(n)
 		go func() {
@@ -119,5 +125,22 @@ func (c *ListController) OJ() {
 
 	go cmd.Reset(fmt.Sprintf("rm -rf %s", path_)).Cd(defaultpath).Execute()
 
-	c.Ctx.ResponseWriter.Write(ret)
+	c.Ctx.ResponseWriter.Write(goutils.ToByte(analyse_result.String()))
+}
+
+func Puzzle2Model(puzzle *models.Puzzle) *model_util.Model {
+	if nil == puzzle {
+		return nil
+	}
+	m := model_util.Model{}
+	m.Id = fmt.Sprintf("%s", puzzle.Id)
+	m.ArgsType = puzzle.ArgsType
+	m.Content = puzzle.Content
+	m.Desc = puzzle.Descr
+	m.FuncName = puzzle.FuncName
+	m.Online = puzzle.Online
+	m.RetsType = puzzle.RetsType
+	m.TestCases = puzzle.TestCases
+	m.Title = puzzle.Title
+	return &m
 }

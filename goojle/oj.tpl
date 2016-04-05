@@ -14,8 +14,9 @@ func Oj(result chan string, t *testing.T) {
 		for _, it := range testcases {
 			ret := {{.FUNC}}(it.in)
 			if !reflect.DeepEqual(ret, it.out) {
-				t.Errorf("Got:%v\n", ret)
-				fmt.Printf("TestCase: %v, wanted:%v\n", it.in, it.out)
+				t.Error("FAILED")
+				fmt.Printf("TestCase:%#v, RunResult:%#v\n", it.in, ret)
+				fmt.Printf("ResultWanted:%#v\n", it.out)
 				retc <- false
 				return
 			}
@@ -35,7 +36,7 @@ func Oj(result chan string, t *testing.T) {
 			}
 		}
 	}
-	fmt.Printf("cost: %v\n",time.Now().Sub(t1))
+	println(time.Now().Sub(t1))
 	result <- "AC"
 }
 

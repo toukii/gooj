@@ -1,4 +1,4 @@
-package gooj
+package goojt
 
 import (
 	"testing"
@@ -14,8 +14,9 @@ func Oj(result chan string, t *testing.T) {
 		for _, it := range testcases {
 			ret := {{.FUNC}}(it.in)
 			if !reflect.DeepEqual(ret, it.out) {
-				t.Errorf("Got:%v\n", ret)
-				fmt.Printf("TestCase: %v, wanted:%v\n", it.in, it.out)
+				t.Error("FAILED")
+				fmt.Printf("TestCase:%#v, RunResult:%#v\n", it.in, ret)
+				fmt.Printf("ResultWanted:%#v\n", it.out)
 				retc <- false
 				return
 			}

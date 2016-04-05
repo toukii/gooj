@@ -1,4 +1,4 @@
-package gooj
+package model_util
 
 import (
 	"testing"

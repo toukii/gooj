@@ -23,8 +23,16 @@
           <td><a href="/oj/{{.Puzzle.Id}}">{{.Puzzle.Id}}</a></td>
           <td><a href="/oj/{{.Puzzle.Id}}">{{.Puzzle.Title}}</a></td>
           <td>{{.User.Name}}</td>
-          <td><textarea style="color: #aa88bb;background-color:#FFF;font-size:14px" class=".hecker" rows="6" cols="50" readonly="true">{{.Result}}</textarea></td>
-          <td></td>
+          <td>
+            {{if .Result}}  
+              {{.Result.State}}
+            {{end}}
+          </td>
+          <td>
+            {{if .Result}}  
+              {{.Result.RunCostTime}}
+            {{end}}
+          </td>
           <td></td>
           <td></td>
           <td></td>

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/everfore/exc"
-	"github.com/shaalx/gooj"
 	"github.com/shaalx/gooj/goojle/models"
+	"github.com/shaalx/gooj/model_util"
 	"github.com/shaalx/goutils"
 	"strings"
 )
@@ -118,7 +118,7 @@ func (c *PuzzleController) PuzzlePostId() {
 func (c *PuzzleController) Test() {
 	submit_LOCKER.Lock()
 	defer submit_LOCKER.Unlock()
-	var model gooj.Model
+	var model model_util.Model
 	model.Id = "1"
 	model.Desc = c.GetString("descr")
 	model.Title = c.GetString("title")
@@ -137,7 +137,7 @@ func (c *PuzzleController) Test() {
 		path_ = "goojt"
 	}
 	beego.Debug("path_:", path_)
-	err := gooj.GenerateOjModle(path_, &model)
+	err := model_util.GenerateOjModle(path_, &model)
 	if goutils.CheckErr(err) {
 		/*c.Ctx.ResponseWriter.Write(goutils.ToByte(err.Error()))
 		return*/

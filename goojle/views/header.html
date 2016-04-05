@@ -27,7 +27,11 @@
 		<div class="container">
 			<a class="navbar-brand hidden-sm" href="/">Puzzles</a>
 			<a class="navbar-brand hidden-sm" href="/state">State</a>
-			<a class="navbar-brand hidden-sm" href="/puzzle/{{.puzzle.Id}}"><h4>Edit</h4></a>
+			{{if .curUser}}
+				<a class="navbar-brand hidden-sm" href="/puzzle/{{.puzzle.Id}}"><h4>Edit</h4></a>
+			{{else}}
+				<a class="navbar-brand hidden-sm" href="/puzzle"><h4>Edit</h4></a>
+			{{end}}
 			
 			<ul class="nav navbar-nav navbar-right hidden-sm">
 				{{if .curUser}}
