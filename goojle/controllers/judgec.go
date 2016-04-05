@@ -85,6 +85,8 @@ func (c *ListController) OJ() {
 		slt.User = models.UserByName("Anonymous")
 	}
 	slt.Content = content
+	// slt.Create = *goutils.LocNow("Asia/Shanghai")
+	// fmt.Println(slt)
 	ffid, _ := c.GetInt("fid")
 	slt.Puzzle = &models.Puzzle{Id: ffid}
 	n, dberr := models.ORM.Insert(&slt)
