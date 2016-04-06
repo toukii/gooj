@@ -59,6 +59,7 @@ func (c *RegistController) Callback() {
 		usr := models.UserByName(usr.Name)
 		n = usr.Id
 		go func() {
+			usr.Passwd = token
 			_, err := models.ORM.Update(usr)
 			goutils.CheckErr(err)
 		}()
