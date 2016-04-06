@@ -4,7 +4,8 @@ create table user(
 	passwd char(64) not null
 )default charset=utf8;
 
-insert into user values(4,"Anonymous","Anonymous");
+insert into user values(1,"shaalx","shaalx");
+insert into user values(2,"Anonymous","Anonymous");
 
 create table solution(
 	id int auto_increment primary key,
