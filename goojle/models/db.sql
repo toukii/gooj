@@ -54,3 +54,9 @@ create table result(
 	run_result text,
 	error_info text
 )default charset=utf8;
+
+create unique index user_index on user(id);
+create unique index puzzle_index on puzzle(id);
+create unique index result_index on result(id);
+create unique index solution_index on solution(id);
+create unique index remark_index on remark(id);
