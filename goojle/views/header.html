@@ -1,48 +1,89 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<style type="text/css">
-		/*body{background-image:url("http://7xku3c.com1.z0.glb.clouddn.com/xmas.jpeg");background-repeat:repeat;}*/
-	</style>
-	<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
-	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!-- <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script> -->
-	<!-- <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="http://static.bootcss.com/www/assets/css/site.min.css?v5" rel="stylesheet">
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="http://cdn.bootcss.com/unveil/1.3.0/jquery.unveil.min.js"></script>
-    <script src="http://cdn.bootcss.com/scrollup/2.4.0/jquery.scrollUp.min.js"></script>
-    <script src="http://cdn.bootcss.com/toc/0.3.2/toc.min.js"></script>
-    <script src="http://cdn.bootcss.com/jquery.matchHeight/0.5.2/jquery.matchHeight-min.js"></script>
-    <script src="http://static.bootcss.com/www/assets/js/site.min.js"></script>
-	<title>{{.title}}</title>
 
-	<script type="text/javascript">
-		
-	</script>
+<!DOCTYPE html>
+<!-- Server: sfn-web-14 -->
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]>-->
+<html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+
+<script src="http://7xku3c.com1.z0.glb.clouddn.com/custom.js"></script>
+<script type="text/javascript" src="http://7xku3c.com1.z0.glb.clouddn.com/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="http://7xku3c.com1.z0.glb.clouddn.com/base_forge.css"
+>
+<link rel="stylesheet" type="text/css" href="http://7xku3c.com1.z0.glb.clouddn.com/font.css"
+>
+<link rel="stylesheet" type="text/css" href="http://7xku3c.com1.z0.glb.clouddn.com/forge.css"
+>
+
+
 </head>
+
+<body id="forge">
+
+<header id="site-header">
+    <div class="wrapper">
+        <a href="/" class="logo">
+            <span>GOOJ</span>
+        </a>
+        
+        <form method="get" action="/">
+            <input type="text" id="words" name="q" placeholder="Search">
+        </form>
+
+        <!--Switch to {language}-->
+        <nav id="nav-site">
+            <a href="/" title="Browse home.">Home</a>
+            <a href="/state" title="Browse state.">State</a>
+            <a href="/puzzle/{{.puzzle.Id}}" title="puzzle id.">Edit</a>
+            <!-- {{if .curUser}}
+                <a href="/user" title="user" class="featured-link">{{.curUser.Name}}</a>
+            {{end}} -->
+        </nav>
+
+
+        <nav id="nav-account">
+            
+              <div class="logged_out">
+                {{if .curUser}}
+                    <a href="/logout">Logout</a>
+                    <a href="/user" title="user" class="featured-link">{{.curUser.Name}}</a>
+                {{else}}
+                    <a href="/register">Logup</a>
+                    <a href="/login">Login</a>
+                    <a href="/githubsignin">GitHub-In</a>
+                {{end}}
+              </div>
+            
+        </nav>
+        
+    </div>
+</header>
+
+<!-- <header id="site-sec-header">
+    <div class="wrapper">
+        <nav id="nav-hubs">
+            <h4>Solution Centers</h4>
+            <a href="http://goparallel.sourceforge.net/">Go Parallel</a>
+        </nav>
+        <nav id="nav-collateral">
+            <a href="http://library.slashdotmedia.com/?source=sfnet_header">Resources</a>
+            
+            <a href="/user/registration/">Newsletters</a>
+            
+
+            <a href="/cloud-storage-providers/?source=sfnet_header">Cloud Storage Providers</a>
+            <a href="/business-voip/?source=sfnet_header">Business VoIP Providers</a>
+
+        </nav>
+    </div>
+</header> -->
+
+
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<a class="navbar-brand hidden-sm" href="/">Puzzles</a>
-			<a class="navbar-brand hidden-sm" href="/state">State</a>
-			{{if .curUser}}
-				<a class="navbar-brand hidden-sm" href="/puzzle/{{.puzzle.Id}}"><h4>Edit</h4></a>
-			{{else}}
-				<a class="navbar-brand hidden-sm" href="/puzzle"><h4>Edit</h4></a>
-			{{end}}
-			
-			<ul class="nav navbar-nav navbar-right hidden-sm">
-				{{if .curUser}}
-					<li><a class="navbar-brand hidden-sm" href="/user">{{.curUser.Name}}</a></li>
-					<li><a class="navbar-brand hidden-sm" href="/logout">Logout</a></li>
-				{{else}}
-					<li><a class="navbar-brand hidden-sm" href="/register">Logup</a></li>
-					<li><a class="navbar-brand hidden-sm" href="/login">Login</a></li>
-					<li><a class="navbar-brand hidden-sm" href="/githubsignin">GitHub-In</a></li>
-				{{end}}
-          	</ul>
-		</div>
-	</div>
-<br><br>
+<div id="page-header"></div>
+<div id="page-body">
+<!-- <div id="bookends_container"> -->
