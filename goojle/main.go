@@ -18,7 +18,7 @@ func main() {
 }
 
 func TaskSessionGC() {
-	tk := toolbox.NewTask("taska", "0/10 * * * * *", func() error {
+	tk := toolbox.NewTask("taska", "* * */1 * * *", func() error {
 		fmt.Println("hello world")
 		models.GlobalSessions.GC()
 		return nil
