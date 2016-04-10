@@ -27,7 +27,7 @@ func (c *JudgeController) Get() {
 	max, _ := models.ORM.QueryTable((*models.Puzzle)(nil)).Count()
 	beego.Info(c.GetString("page"))
 	c.Data["puzzles"] = puzzlez
-	c.Data["pagination"] = utils.Pagination("", int(max)/15, page)
+	c.Data["pagination"] = utils.Pagination("", int(max)/15+1, page)
 	c.TplName = "list.html"
 }
 
@@ -40,6 +40,6 @@ func (c *JudgeController) State() {
 	max, _ := models.ORM.QueryTable((*models.Solution)(nil)).Count()
 	c.Data["title"] = "State"
 	c.Data["solutions"] = solutions
-	c.Data["pagination"] = utils.Pagination("state", int(max)/15, page)
+	c.Data["pagination"] = utils.Pagination("state", int(max)/15+1, page)
 	c.TplName = "state.html"
 }
