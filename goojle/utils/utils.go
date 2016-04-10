@@ -58,7 +58,7 @@ func Pagination(base string, max, cur int) string {
 			for i := 1; i < cur; i++ {
 				around += fmt.Sprintf(`<a href="/%s?page=%d"> %d </a>`, base, i, i)
 			}
-			around += fmt.Sprintf(`<span class="current"> %d </span>`, base, cur)
+			around += fmt.Sprintf(`<span class="current"> %d </span>`, cur)
 			for i := cur + 1; i <= 3; i++ {
 				around += fmt.Sprintf(`<a href="/%s?page=%d"> %d </a>`, base, i, i)
 			}
