@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/shaalx/gooj/goojle/models"
+	"github.com/shaalx/gooj/goojle/utils"
 	// "github.com/shaalx/goutils"
 )
 
@@ -12,8 +13,9 @@ type JudgeController struct {
 
 // @router / [get]
 func (c *JudgeController) Get() {
+	page, _ := c.GetInt("page")
 	var puzzles []models.Puzzle
-	n, err := models.ORM.QueryTable((*models.Puzzle)(nil)).RelatedSel().Filter("Online", 1).Limit(15, 0).All(&puzzles)
+	n, err := models.ORM.QueryTable((*models.Puzzle)(nil)).RelatedSel().Filter("Online", 1).Limit(15, 15*(page-1)).All(&puzzles)
 	beego.Debug(n, err)
 	c.Data["title"] = "Puzzle"
 	puzzlez := make([]models.Puzzle, 0, len(puzzles))
@@ -22,16 +24,22 @@ func (c *JudgeController) Get() {
 		puzzlez = append(puzzlez, it)
 	}
 	// fmt.Println(puzzlez)
+	max, _ := models.ORM.QueryTable((*models.Puzzle)(nil)).Count()
+	beego.Info(c.GetString("page"))
 	c.Data["puzzles"] = puzzlez
+	c.Data["pagination"] = utils.Pagination("", int(max)/15, page)
 	c.TplName = "list.html"
 }
 
 // @router /state [get]
 func (c *JudgeController) State() {
+	page, _ := c.GetInt("page")
 	var solutions []models.Solution
-	n, err := models.ORM.QueryTable((*models.Solution)(nil)).RelatedSel().OrderBy("-created").Limit(15).All(&solutions)
+	n, err := models.ORM.QueryTable((*models.Solution)(nil)).RelatedSel().OrderBy("-created").Limit(15, 15*(page-1)).All(&solutions)
 	beego.Debug(n, err)
+	max, _ := models.ORM.QueryTable((*models.Solution)(nil)).Count()
 	c.Data["title"] = "State"
 	c.Data["solutions"] = solutions
+	c.Data["pagination"] = utils.Pagination("state", int(max)/15, page)
 	c.TplName = "state.html"
 }
