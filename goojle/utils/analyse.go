@@ -88,7 +88,9 @@ func Analyse(input string) *Result {
 		result.State = "FAIL"
 	}
 	cost := strings.Split(splt[length-2], "\t")
-	result.RunCostTime = cost[len(cost)-1]
+	if len(cost[len(cost)-1]) <= 6 {
+		result.RunCostTime = cost[len(cost)-1]
+	}
 	// fmt.Println(result)
 	// fmt.Println("=============================")
 	return &result

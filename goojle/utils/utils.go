@@ -115,7 +115,7 @@ func Pagination(base string, max, cur int) string {
 			around += fmt.Sprintf(`<a href="/%s?page=%d"> %d </a>`, base, i, i)
 		}
 		return starter + around + enter
-	} else if cur < max-4 {
+	} else if cur <= max-4 {
 		for i := 1; i <= 3; i++ {
 			around += fmt.Sprintf(`<a href="/%s?page=%d"> %d </a>`, base, i, i)
 		}
