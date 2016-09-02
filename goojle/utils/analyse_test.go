@@ -12,7 +12,7 @@ ResultWanted:[]int{3, 3, 1}
         reverse_test.go:17: FAILED
 FAIL
 exit status 1
-FAIL    github.com/shaalx/gooj/goojt    0.243s`
+FAIL    github.com/toukii/gooj/goojt    0.243s`
 
 	fail_pass = `=== RUN   TestOj
 === RUN   TestOj
@@ -33,9 +33,9 @@ FAIL
 exit status 1
 FAIL	_/gopath/goojle/20417	0.003s`
 
-	setup_fail = `# github.com/shaalx/gooj/goojle/51102
+	setup_fail = `# github.com/toukii/gooj/goojle/51102
 percentString_test.go:51:40: missing ',' before newline in composite literal
-FAIL	github.com/shaalx/gooj/goojle/51102 [setup failed]`
+FAIL	github.com/toukii/gooj/goojle/51102 [setup failed]`
 
 	build_fail = `# _/gopath/goojle/20417
 ./sort.go:10: undefined: l
