@@ -2,7 +2,7 @@ package model_util
 
 import (
 	"encoding/json"
-	"github.com/shaalx/goutils"
+	"github.com/toukii/goutils"
 	"io/ioutil"
 	"net/http"
 	"os"
