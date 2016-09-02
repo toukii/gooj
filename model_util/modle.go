@@ -2,7 +2,7 @@ package model_util
 
 import (
 	"fmt"
-	"github.com/shaalx/goutils"
+	"github.com/toukii/goutils"
 	"io"
 	"io/ioutil"
 	"os"
