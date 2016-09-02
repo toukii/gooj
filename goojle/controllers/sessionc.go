@@ -3,7 +3,7 @@ package controllers
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	"github.com/shaalx/gooj/goojle/models"
+	"github.com/toukii/gooj/goojle/models"
 	"strconv"
 )
 
