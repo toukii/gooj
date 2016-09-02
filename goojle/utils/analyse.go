@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	"github.com/shaalx/goutils"
+	"github.com/toukii/goutils"
 	"strings"
 )
 
