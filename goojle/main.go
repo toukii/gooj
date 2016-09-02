@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/toolbox"
-	"github.com/shaalx/gooj/goojle/models"
-	_ "github.com/shaalx/gooj/goojle/routers"
+	"github.com/toukii/gooj/goojle/models"
+	_ "github.com/toukii/gooj/goojle/routers"
 )
 
 func main() {
