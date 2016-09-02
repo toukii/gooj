@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/shaalx/gooj/goojle/controllers"
+	"github.com/toukii/gooj/goojle/controllers"
 )
 
 func init() {
