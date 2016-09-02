@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/shaalx/gooj/goojle/models"
-	// "github.com/shaalx/goutils"
+	"github.com/toukii/gooj/goojle/models"
+	// "github.com/toukii/goutils"
 	"html/template"
 )
 
