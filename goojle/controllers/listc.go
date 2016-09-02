@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/shaalx/gooj/goojle/models"
-	"github.com/shaalx/gooj/goojle/utils"
-	// "github.com/shaalx/goutils"
+	"github.com/toukii/gooj/goojle/models"
+	"github.com/toukii/gooj/goojle/utils"
+	// "github.com/toukii/goutils"
 )
 
 type JudgeController struct {
