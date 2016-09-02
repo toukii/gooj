@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/everfore/exc"
-	"github.com/shaalx/gooj/goojle/models"
-	"github.com/shaalx/gooj/model_util"
-	"github.com/shaalx/goutils"
+	"github.com/toukii/gooj/goojle/models"
+	"github.com/toukii/gooj/model_util"
+	"github.com/toukii/goutils"
 	"strings"
 )
 
