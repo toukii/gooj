@@ -1,7 +1,7 @@
 package test
 
 import (
-	_ "github.com/shaalx/gooj/goojle/routers"
+	_ "github.com/toukii/gooj/goojle/routers"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
