@@ -5,9 +5,9 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
 	"github.com/everfore/oauth/oauth2"
-	"github.com/shaalx/gooj/goojle/models"
-	"github.com/shaalx/goutils"
-	"github.com/shaalx/jsnm"
+	"github.com/toukii/gooj/goojle/models"
+	"github.com/toukii/goutils"
+	"github.com/toukii/jsnm"
 	"html/template"
 )
 
