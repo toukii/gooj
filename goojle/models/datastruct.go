@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/astaxie/beego/validation"
-	"github.com/shaalx/gooj/goojle/utils"
+	"github.com/toukii/gooj/goojle/utils"
 	"time"
 )
 
@@ -15,7 +15,7 @@ type User struct {
 }
 
 func (u *User) Valid(v *validation.Validation) {
-	v.Required(u.Name, "shaalx")
+	v.Required(u.Name, "toukii")
 	if u.Passwd != u.RePasswd {
 		v.SetError("passwd", "repassword does not equal.")
 	}
