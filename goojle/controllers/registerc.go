@@ -16,7 +16,7 @@ var (
 )
 
 func init() {
-	OA = oauth2.NewOAGithub("8dbf243923c1384ebb63", "f7129496415cefed1770e0d2470d14cd82015f25", "user", "http://goojle.daoapp.io/callback")
+	OA = oauth2.NewOAGithub("b1499626b1250ebcea00", "261593f0356fdbdd7460929176fcb6bbe2df646a", "user", "http://goojle.daoapp.io/callback")
 }
 
 type RegistController struct {
