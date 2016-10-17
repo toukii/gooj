@@ -12,7 +12,14 @@ var GlobalSessions *session.Manager
 func init() {
 	// GlobalSessions, _ = session.NewManager("memory", `{"cookieName":"gosessionid", "enableSetCookie,omitempty": true, "gclifetime":3600, "maxLifetime": 3600, "secure": false, "sessionIDHashFunc": "sha1", "sessionIDHashKey": "", "cookieLifeTime": 3600, "providerConfig": ""}`)
 	// GlobalSessions, _ = session.NewManager("file", `{"cookieName":"gosessionid","sessionsavepath":"./sessionpath/", "enableSetCookie,omitempty": true, "gclifetime":3600, "maxLifetime": 3600, "secure": false, "sessionIDHashFunc": "sha1", "sessionIDHashKey": "", "cookieLifeTime": 3600, "providerConfig": ""}`)
-	GlobalSessions, _ :=session.NewManager("file",nil)
+	ssn:=session.ManagerConfig{}
+	ssn.CookieName = "gosessionid"
+	ssn.EnableSetCookie = true
+	ssn.Gclifetime = 3600
+	ssn.EnableSetCookie = true
+	ssn.Maxlifetime = 3600
+
+	GlobalSessions, _ :=session.NewManager("file",&ssn)
 	// GlobalSessions, _ = session.NewManager("mysql", `{"cookieName":"gosessionid","sessionsavepath":"./sessionpath/", "enableSetCookie,omitempty": true, "gclifetime":3600, "maxLifetime": 3600, "secure": false, "sessionIDHashFunc": "sha1", "sessionIDHashKey": "", "cookieLifeTime": 3600, "providerConfig": "root:1234@tcp(localhost:3306)/session?charset=utf8"}`)
 	// GlobalSessions, _ = session.NewManager("mysql", `{"cookieName":"gosessionid","sessionsavepath":"./sessionpath/", "enableSetCookie,omitempty": true, "gclifetime":3600, "maxLifetime": 3600, "secure": false, "sessionIDHashFunc": "sha1", "sessionIDHashKey": "", "cookieLifeTime": 3600, "providerConfig": "goojle:Goojle1234@tcp(121.42.161.248:3306)/gooj?charset=utf8"}`)
 	// GlobalSessions, _ = session.NewManager("mysql", `{"cookieName":"gosessionid","gclifetime":3600,"ProviderConfig":"goojle:Goojle1234@tcp(121.42.161.248:3306)/gooj?charset=utf8"}`)
