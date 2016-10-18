@@ -7,9 +7,9 @@ import (
 )
 
 type User struct {
-	Id       int    `orm:"id;pk" form:"-"`
+	Id       int    `orm:"pk" form:"-"`
 	Name     string `form:"username" orm:"unique"`
-	Passwd   string `form:"password" orm:"passwd"`
+	Passwd   string `form:"password"`
 	RePasswd string `form:"repassword" orm:"-"`
 	Xsrf     string `form:"_xsrf" orm:"-"`
 }
@@ -26,34 +26,34 @@ func (u *User) Check() int {
 }
 
 type Remark struct {
-	Id       int       `orm:"id;pk" form:"-"`
+	Id       int       `orm:"pk" form:"-"`
 	User     *User     `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
 	Puzzle   *Puzzle   `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
 	Solution *Solution `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
-	Content  string    `orm:"content" form:"content"`
+	Content  string    `form:"content"`
 	Create   time.Time `orm:"auto_now_add;column(created);type(datetime)"`
 }
 
 type Solution struct {
-	Id      int       `orm:"id;pk"`
+	Id      int       `orm:"pk"`
 	User    *User     `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
 	Puzzle  *Puzzle   `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
-	Content string    `orm:"content;null" form:"content"`
-	Result  *Result   `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
+	Content string    `orm:"null" form:"content"`
+	Result  *Result   `orm:"rel(fk);null;column(result);on_delete(cascade)" form:"-"`
 	Create  time.Time `orm:"auto_now_add;column(created);type(datetime)"`
 }
 
 type Puzzle struct {
-	Id        int    `orm:"id;pk" form:"id"`
+	Id        int    `orm:"pk" form:"id"`
 	User      *User  `orm:"rel(fk);null;on_delete(cascade)" form:"-"`
-	Title     string `json:"title" orm:"title" form:"title"`
-	Descr     string `json:"descr" orm:"descr" form:"descr"`
-	FuncName  string `json:"func_name" orm:"func_name" form:"func_name"`
-	Content   string `json:"content" orm:"content" form:"content"`
-	ArgsType  string `json:"args_type" orm:"args_type" form:"args_type"`
-	RetsType  string `json:"rets_type" orm:"rets_type" form:"rets_type"`
-	TestCases string `json:"test_cases" orm:"test_cases" form:"test_cases"`
-	Online    byte   `json:"online" orm:"online" form:"online"`
+	Title     string `json:"title" form:"title"`
+	Descr     string `json:"descr" form:"descr"`
+	FuncName  string `json:"func_name" form:"func_name"`
+	Content   string `json:"content" form:"content"`
+	ArgsType  string `json:"args_type" form:"args_type"`
+	RetsType  string `json:"rets_type" form:"rets_type"`
+	TestCases string `json:"test_cases" form:"test_cases"`
+	Online    byte   `json:"online" form:"online"`
 }
 
 func (p *Puzzle) SubString(length int) {
@@ -61,13 +61,13 @@ func (p *Puzzle) SubString(length int) {
 }
 
 type Result struct {
-	Id          int    `orm:"id;pk" form:"id"`
-	State       string `json:"state" orm:"state" form:"state"`
-	RunCostTime string `json:"run_cost_time" orm:"run_cost_time" form:"run_cost_time"`
-	TestCase    string `json:"test_case" orm:"test_case" form:"test_case"`
-	RunResult   string `json:"run_result" orm:"run_result" form:"run_result"`
-	ErrorInfo   string `json:"error_info" orm:"error_info" form:"error_info"`
-	Content     string `json:"content" orm:"content" form:"content"`
+	Id          int    `orm:"pk" form:"id"`
+	State       string `json:"state" form:"state"`
+	RunCostTime string `json:"run_cost_time" form:"run_cost_time"`
+	TestCase    string `json:"test_case" form:"test_case"`
+	RunResult   string `json:"run_result" form:"run_result"`
+	ErrorInfo   string `json:"error_info" form:"error_info"`
+	Content     string `json:"content" form:"content"`
 }
 
 func AnalyseResultParse(res *utils.Result) *Result {
