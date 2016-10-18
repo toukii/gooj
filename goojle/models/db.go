@@ -9,8 +9,8 @@ import (
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	// orm.RegisterDataBase("localhost", "mysql", "root:1234@tcp(localhost:3306)/session?charset=utf8")
-	// orm.RegisterDataBase("default", "mysql", "uEIYt69vVZXOJDok:pQCautZUg6ji0fdmL@tcp(10.10.26.58:3306)/k3MHIXiO61hr5vC0?charset=utf8")
-	orm.RegisterDataBase("default", "mysql", "root:Goojle123@tcp(mysql2.t0.daoapp.io:61082)/gooj?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "uEIYt69vVZXOJDok:pQCautZUg6ji0fdmL@tcp(10.10.26.58:3306)/k3MHIXiO61hr5vC0?charset=utf8")
+	// orm.RegisterDataBase("default", "mysql", "root:Goojle123@tcp(mysql2.t0.daoapp.io:61082)/gooj?charset=utf8")
 	orm.RegisterModel(new(User), new(Puzzle), new(Solution), new(Remark), new(Result))
 	ORM = orm.NewOrm()
 	ORM.Using("default")
