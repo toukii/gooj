@@ -1,16 +1,33 @@
 {{template "header.html" .}}
 <style type="text/css">
-  .hecker{
-    color: #00FF00;
-    background-color:#000;
-    font-size:14px;
-  }
+	.hecker{
+		color: #00FF00;
+		background-color:#000;
+		font-size:14px;
+	}
+	.left{  
+		 height: 200px;  
+		 vertical-align: top;  
+		 position: absolute;  
+		 right: 210px;  
+		 left: 70px;  
+		 width: 60%;  
+	}
+	.right{  
+	    width: 40%;   
+	    margin-right: 2px;  
+	    right: 40px;  
+	    top: 20px;  
+	    vertical-align: top;  
+	    float: right;
+	    background-color:#eee;padding:10px 5px 5px 5px;position:relative 
+	}
+	
 </style>
 </div>
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <title>{{.puzzle.Title}}</title>
-<div class="container" style="background-color:#eee;padding:10px 5px 5px 5px">
-	<div class="col-md-7">			
+<div>
+	<div class="left">			
 		<div class="content">
 			<form id="puzzle-form" action="/oj/{{.puzzle.Id}}" method="post">
 				<input type="hidden" name="fid" value="{{.puzzle.Id}}">
@@ -20,10 +37,10 @@
 			</form>
 		</div>
 	</div>
-	<div class="col-md-5">
-		<label id="submit-btn" style="background-color:#72AEF2;padding:10px 8px;">commit</label><br>
-		<textarea id="puzzle-result" style="color: #ff0000;background-color:#333233;font-size:14px;display: none;" cols="100" rows="8" class="hecker form-control" readonly="true"></textarea> 
+	<div class="right">
 		<span id="markdownContent"></span>
+		<button id="submit-btn" style="color:#72AEF2;padding:10px 8px;">提交</button><br>
+		<textarea id="puzzle-result" style="display: none;" cols="70" rows="8" class="hecker form-control" readonly="true"></textarea> 
 	</div>
 </div>
 
