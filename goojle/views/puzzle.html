@@ -137,11 +137,11 @@
 	});
 
 	function CallbackFunc (data){
-		$("#markdownContent").html(data.mddata);
+		$("#markdownContent").html(data);
 	}
 	function rpcmd () {
 		$.getJSON("http://markdown.daoapp.io/markdownCB?callback=?",{"rawContent":$("#descr").val()},function (data){
-	        console.log("callback-data:" + data.mddata);
+	        // console.log("callback-data:" + data.mddata);
 	    });
 	}
 </script>

@@ -56,8 +56,8 @@
         	jsonpCallback:"CallbackFunc",
         	data:{"rawContent":{{.puzzle.Descr}}},
 	        success : function(data){
-	            $("#markdownContent").html(data.mddata);
-	        	console.log(data.mddata);
+	            $("#markdownContent").html(data);
+	        	// console.log(data.mddata);
 	        },  
 	        error:function(){  
 	            // alert('fail');  
